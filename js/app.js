@@ -4,23 +4,14 @@
 
 // JVM Mode -  server or clients
 var jvmMode = "-server";
-
 var space = " ";
-
-// GC Collector Algorithm
 var gcCollectorAlgorithm = "";
-
-// Enable GC Log Rotation Option
 var enableGCLogRotation = "";
-
-// Print GC Details Option
 var printGCDetails = "";
-
 var heapDumpOnOOMemory = "";
-
 var aggressiveOpts = "";
-
 var errorFile = "";
+var largePages = "";
 
 /**
  * Function to invoke on document ready.
@@ -30,8 +21,6 @@ $(document).ready(function () {
     resetJVMOptions();
 
     $("[data-toggle=tooltip]").tooltip();
-
-
 
 });
 
@@ -84,13 +73,14 @@ $("form :input").change(function () {
     // heapDumpOnOOMemory
     validateCheckboxInput("heapDumpOnOOMemory", "-XX:-HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/heapDump.hprof");
 
-
     //aggressiveOpts
     validateCheckboxInput("aggressiveOpts", "-XX:+AggressiveOpts");
 
     //errorFile
     validateCheckboxInput("errorFile", "-XX:ErrorFile=C:/log/java/java_error.log");
 
+    //largePages
+    validateCheckboxInput("largePages", "-XX:+UseLargePages");
 
     refreshJVMFlagRef();
 });
