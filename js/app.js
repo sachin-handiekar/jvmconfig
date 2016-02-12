@@ -120,7 +120,8 @@ function refreshJVMFlagRef() {
     //Enable AggressiveOpts
     addTextToJVMSummary(aggressiveOpts);
 
-
+    //Enable Largepages
+    addTextToJVMSummary(largePages);
 }
 
 
