@@ -45,10 +45,13 @@ $('#gcCollector').on('change', function () {
 
     if (gcAlgo == 'g1') {
         gcCollectorAlgorithm = '-XX:+UseG1GC';
+        $("#g1ExtraFlags").removeClass('hidden');
     } else if (gcAlgo == 'cms') {
         gcCollectorAlgorithm = '-XX:+UseConcMarkSweepGC';
+        $("#g1ExtraFlags").addClass('hidden');
     } else if (gcAlgo == 'parallel') {
         gcCollectorAlgorithm = '-XX:+UseParNewGC -XX:+UseConcMarkSweepGC';
+        $("#g1ExtraFlags").addClass('hidden');
     }
 
 
@@ -58,6 +61,10 @@ $('#gcCollector').on('change', function () {
  * Reset Form Options
  */
 function resetJVMOptions() {
+    // Hide the G1 extra option panel
+    $("#g1ExtraFlags").addClass('hidden');
+
+
     $("#printGCDetails").text("unchecked");
     $("#enableGCLogRotation").text("unchecked");
 }

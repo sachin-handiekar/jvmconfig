@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="JVM Options Configuration Tool - A JVM config tool which allows us to see the various flags/parameters used in changing the behaviour, debugging and many more features within the JVM.">
+    <meta name="description"
+          content="JVM Options Configuration Tool - A JVM config tool which allows us to see the various flags/parameters used in changing the behaviour, debugging and many more features within the JVM.">
     <meta name="author" content="Sachin Handiekar">
 
     <link rel="icon" href="favicon.ico">
@@ -55,7 +55,8 @@
 
         <!-- JVM Vendor -->
         <div class="form-group">
-            <label class="col-sm-5" for="jvmVendor">JVM Vendor <a href="#" data-toggle="tooltip" title="A JVM Vendor"><i class='glyphicon glyphicon-info-sign'></i></a>
+            <label class="col-sm-5" for="jvmVendor">JVM Vendor <a href="#" data-toggle="tooltip" title="A JVM Vendor"><i
+                    class='glyphicon glyphicon-info-sign'></i></a>
             </label>
             <div class="col-sm-5">
                 <select class="form-control" id="jvmVendor">
@@ -82,6 +83,28 @@
         </div>
 
 
+
+        <!-- Garbage First (G1) Garbage Collection Options -->
+        <div id="g1ExtraFlags" class="panel panel-default">
+            <div class="panel-heading">Garbage First (G1) Garbage Collection Options</div>
+            <div class="panel-body">
+
+
+                <!-- Max GC Pause Time   -->
+                <div class="form-group">
+                    <label class="col-sm-5" for="g1gc-maxGCPauseTime">Set Max. GC pause time</label>
+                    <div class="col-sm-5">
+                        <input id="g1gc-maxGCPauseTime" type="checkbox" value="">
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+        <!-- Debugging JVM Flags -->
         <div class="panel panel-default">
             <div class="panel-heading">Debugging</div>
             <div class="panel-body">
@@ -94,7 +117,6 @@
                         <input id="printGCDetails" type="checkbox" value="">
                     </div>
                 </div>
-
 
 
                 <!-- Enable GC Log Rotation   -->
@@ -123,15 +145,13 @@
                 </div>
 
 
-
             </div>
         </div>
 
-
+        <!-- Performance JVM Flags -->
         <div class="panel panel-default">
             <div class="panel-heading">Performance</div>
             <div class="panel-body">
-
 
 
                 <!-- AggressiveOpts   -->
@@ -143,7 +163,6 @@
                 </div>
 
 
-
             </div>
         </div>
 
@@ -152,7 +171,8 @@
         <label class="col-sm-5" for="gcCollector">Summary</label>
         <br/>
 
-        <textarea id="jvmFlagResult" class="form-control" style="height: 180px" placeholder="JVM Options Summary"></textarea>
+        <textarea id="jvmFlagResult" class="form-control" style="height: 180px"
+                  placeholder="JVM Options Summary"></textarea>
 
     </form>
 
@@ -162,7 +182,7 @@
     </footer>
 
     <!-- github banner    -->
-    <a href="https://github.com/you">
+    <a href="https://github.com/sachin-handiekar/jvmconfig">
         <img style="position: absolute; top: 0; right: 0; border: 0;"
              src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
              alt="Fork me on GitHub"
