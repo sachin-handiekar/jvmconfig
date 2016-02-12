@@ -59,7 +59,6 @@ function resetJVMOptions() {
 }
 
 
-
 /**
  * Global Change Listener
  */
@@ -86,7 +85,6 @@ $("form :input").change(function () {
 });
 
 
-
 function validateCheckboxInput(chkboxId, jvmFlag) {
     if ($("#" + chkboxId).is(':checked')) {
         this[chkboxId] = jvmFlag;
@@ -100,7 +98,7 @@ function validateCheckboxInput(chkboxId, jvmFlag) {
  * Refresh the JVM Options Summary textbox
  */
 function refreshJVMFlagRef() {
-    $("#jvmFlagResult").text("");
+    $("#jvmFlagResult").text('');
 
     // Set the JVM Mode
     addTextToJVMSummary(jvmMode);
@@ -126,6 +124,13 @@ function refreshJVMFlagRef() {
 
 
 function addTextToJVMSummary(val) {
-    $("#jvmFlagResult").append(val);
-    $("#jvmFlagResult").append(space);
+
+    if (!val.trim()) {
+        // String is empty; don't do anything
+    } else {
+        $("#jvmFlagResult").append(val);
+        $("#jvmFlagResult").append(space);
+    }
+
+
 }
