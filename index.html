@@ -13,12 +13,10 @@
 
     <title>JVM Options Configuration Tool</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
-          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
     <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
     <link href="css/jumbotron-narrow.css" rel="stylesheet">
 
@@ -40,16 +38,16 @@
 <div class="container">
     <div class="header clearfix">
         <h1 class="text-muted">JVM Options Configuration Tool</h1>
-        A JVM config tool which allows us to see the various flags/parameters used in changing the behaviour, debugging
-        and many more features within the JVM.</h2>
+        A JVM config tool which can be used to see various flags/parameters used in changing behaviour & debugging
+        features within the JVM.</h2>
     </div>
 
 
     <form role="form" class="form-horizontal">
         <!-- JVM Vendor -->
         <div class="form-group">
-            <label class="col-sm-5" for="jvmVendor">JVM Vendor <a href="#" data-toggle="tooltip" title="A JVM Vendor"><i
-                    class='glyphicon glyphicon-info-sign'></i></a>
+            <label class="col-sm-5" for="jvmVendor">JVM Vendor <i id="tooltip-jvmVendor" data-toggle="tooltip"
+                                                                  class='glyphicon glyphicon-info-sign'></i>
             </label>
             <div class="col-sm-5">
                 <select class="form-control" id="jvmVendor">
@@ -61,111 +59,293 @@
             </div>
         </div>
 
-        <!-- GC Collector -->
+
+        <!-- JDK Version -->
         <div class="form-group">
-            <label class="col-sm-5" for="gcCollector">GC Collector</label>
 
-            <div class="col-sm-5">
-                <select class="form-control" id="gcCollector">
-                    <option disabled selected>-- Select an option --</option>
-                    <option value="cms">CMS (low pause)</option>
-                    <option value="parallel">Parallel (throughput)</option>
-                    <option value="g1">G1 (low pause)</option>
-                </select>
+            <label class="col-sm-5" for="jdkVersion">JDK Version <i id="tooltip-jdkVersion" data-toggle="tooltip"
+                                                                    title="JDK Version"
+                                                                    class='glyphicon glyphicon-info-sign'></i>
+            </label>
+
+            <div class="col-sm-5" id="jdkVersion">
+                <div class="radio">
+                    <label><input id="jdkVersion67" checked="checked" type="radio" name="jdkVersionRadioGroup">JDK
+                        6/7</label>
+                </div>
+                <div class="radio">
+                    <label><input id="jdkVersion8" type="radio" name="jdkVersionRadioGroup">JDK 8</label>
+                </div>
+
             </div>
+
         </div>
 
 
-        <!-- Garbage First (G1) Garbage Collection Options -->
-        <div id="g1ExtraFlags" class="panel panel-default">
-            <div class="panel-heading">Garbage First (G1) Garbage Collection Options</div>
-            <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#memory">Memory</a></li>
+            <li><a data-toggle="tab" href="#garbageCollector">Garbage Collector</a></li>
+            <li><a data-toggle="tab" href="#debugging">Debugging</a></li>
+            <li><a data-toggle="tab" href="#performance">Performance</a></li>
+            <li><a data-toggle="tab" href="#additional">Additional</a></li>
+        </ul>
+
+        <div class="tab-content">
+
+            <!-- Memory Tab -->
+            <div id="memory" class="tab-pane fade in active">
+                <br/>
+                <!-- Memory -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">Heap Size <i
+                            id="tooltip-heapSize" data-toggle="tooltip" title="JVM Heap size"
+                            class='glyphicon glyphicon-info-sign'></i></div>
+                    <div class="panel-body">
+
+                        <!-- HeapSize   -->
+                        <div class="form-group ">
+                            <div class="col-sm-8">
+
+                                <!-- Min Heap Size -->
+                                <div class="col-xs-3">
+                                    <input class="form-control" id="minHeapSize" placeholder="min" type="text">
+                                </div>
+
+                                <!-- Max Heap Size -->
+                                <div class="col-xs-3">
+                                    <input class="form-control" id="maxHeapSize" placeholder="max" type="text">
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <select class="form-control" id="heapSizeSelect">
+                                        <option value="mb">Mb</option>
+                                        <option value="gb">Gb</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="checkbox"> Apply heapSize options
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">Permsize <i
+                            id="tooltip-permSize" data-toggle="tooltip" title="Perm Size"
+                            class='glyphicon glyphicon-info-sign'></i></div>
+                    <div class="panel-body">
+
+                        <!-- PermSize   -->
+                        <div class="form-group ">
+                            <div class="col-sm-7">
+
+                                <!-- Min Heap Size -->
+                                <div class="col-xs-3">
+                                    <input class="form-control" id="defaultPermSize" placeholder="default" type="text">
+                                </div>
+
+                                <!-- Max Heap Size -->
+                                <div class="col-xs-3">
+                                    <input class="form-control" id="maxPermSize" placeholder="max" type="text">
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <select class="form-control" id="permSizeSelect">
+                                        <option value="mb">Mb</option>
+                                        <option value="gb">Gb</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                        <input type="checkbox"> Apply permSize options
+
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">Metaspace <i
+                            id="tooltip-metaSpace" data-toggle="tooltip" title="Metaspace"
+                            class='glyphicon glyphicon-info-sign'></i></div>
+                    <div class="panel-body">
+
+                        <!-- MetaSpace   -->
+                        <div id="metaSpaceDiv" class="form-group ">
+                            <div class="col-sm-7">
+
+                                <!-- Min Heap Size -->
+                                <div class="col-xs-3">
+                                    <input class="form-control" id="defaultMetaSpace" placeholder="default" type="text">
+                                </div>
+
+                                <!-- Max Heap Size -->
+                                <div class="col-xs-3">
+                                    <input class="form-control" id="maxMetaSpace" placeholder="max" type="text">
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <select class="form-control" id="metaSpaceSelect">
+                                        <option value="mb" selected>Mb</option>
+                                        <option value="gb">Gb</option>
+                                    </select>
+                                </div>
+
+                            </div>
 
 
-                <!-- Max GC Pause Time   -->
+                        </div>
+                        <input type="checkbox"> Apply permSize options
+
+
+                    </div>
+                </div>
+
+
+            </div>  <!-- Memory Panel end -->
+
+
+            <div id="garbageCollector" class="tab-pane fade">
+
+                <!-- GC Collector -->
                 <div class="form-group">
-                    <label class="col-sm-5" for="g1gc-maxGCPauseTime">Set Max. GC pause time</label>
+                    <label class="col-sm-5" for="gcCollector">GC Collector <i id="tooltip-gcCollector"
+                                                                              data-toggle="tooltip"
+                                                                              title="A JVM Vendor"
+                                                                              class='glyphicon glyphicon-info-sign'></i></label>
+
                     <div class="col-sm-5">
-                        <input id="g1gc-maxGCPauseTime" type="checkbox" value="">
+                        <select class="form-control" id="gcCollector">
+                            <option disabled selected>-- Select an option --</option>
+                            <option value="cms">CMS (low pause)</option>
+                            <option value="parallel">Parallel (throughput)</option>
+                            <option value="g1">G1 (low pause)</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <!-- Garbage First (G1) Garbage Collection Options -->
+                <div id="g1ExtraFlags" class="panel panel-default">
+                    <div class="panel-heading">Garbage First (G1) Garbage Collection Options</div>
+                    <div class="panel-body">
+
+
+                        <!-- Max GC Pause Time   -->
+                        <div class="form-group">
+                            <label class="col-sm-5" for="g1gc-maxGCPauseTime">Set Max. GC pause time <i
+                                    id="tooltip-g1gc-maxGCPauseTime" data-toggle="tooltip" title="A JVM Vendor"
+                                    class='glyphicon glyphicon-info-sign'></i></label>
+                            <div class="col-sm-5">
+                                <input id="g1gc-maxGCPauseTime" type="checkbox" value="">
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Debugging Tab -->
+            <div id="debugging" class="tab-pane fade">
+                <br/>
+
+                <!-- Debugging JVM Flags -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">Debugging</div>
+                    <div class="panel-body">
+
+
+                        <!-- Enable GC Logging    -->
+                        <div class="form-group">
+                            <label class="col-sm-5" for="printGCDetails">Enable GC Logging <i
+                                    id="tooltip-printGCDetails"
+                                    data-toggle="tooltip"
+                                    title="A JVM Vendor"
+                                    class='glyphicon glyphicon-info-sign'></i></label>
+                            <div class="col-sm-5">
+                                <input id="printGCDetails" type="checkbox" value="">
+                            </div>
+                        </div>
+
+
+                        <!-- Enable GC Log Rotation   -->
+                        <div class="form-group">
+                            <label class="col-sm-5" for="enableGCLogRotation">Enable GC Log Rotation <i
+                                    id="tooltip-enableGCLogRotation" data-toggle="tooltip" title="A JVM Vendor"
+                                    class='glyphicon glyphicon-info-sign'></i></label>
+                            <div class="col-sm-5">
+                                <input id="enableGCLogRotation" type="checkbox" value="">
+                            </div>
+                        </div>
+
+
+                        <!-- HeapDump on OnOutOfMemoryError   -->
+                        <div class="form-group">
+                            <label class="col-sm-5" for="heapDumpOnOOMemory">Enable HeapDump on
+                                OutOfMemoryError</label>
+                            <div class="col-sm-5">
+                                <input id="heapDumpOnOOMemory" type="checkbox" value="">
+                            </div>
+                        </div>
+
+                        <!-- ErrorFile   -->
+                        <div class="form-group">
+                            <label class="col-sm-5" for="enableErrorFile">Enable ErrorData on exit</label>
+                            <div class="col-sm-5">
+                                <input id="enableErrorFile" type="checkbox" value="">
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
 
 
             </div>
-        </div>
 
 
-        <!-- Debugging JVM Flags -->
-        <div class="panel panel-default">
-            <div class="panel-heading">Debugging</div>
-            <div class="panel-body">
+            <div id="performance" class="tab-pane fade">
+                <br/>
 
 
-                <!-- Enable GC Logging    -->
-                <div class="form-group">
-                    <label class="col-sm-5" for="printGCDetails">Enable GC Logging</label>
-                    <div class="col-sm-5">
-                        <input id="printGCDetails" type="checkbox" value="">
-                    </div>
-                </div>
+                <!-- Performance JVM Flags -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">Performance</div>
+                    <div class="panel-body">
 
 
-                <!-- Enable GC Log Rotation   -->
-                <div class="form-group">
-                    <label class="col-sm-5" for="enableGCLogRotation">Enable GC Log Rotation</label>
-                    <div class="col-sm-5">
-                        <input id="enableGCLogRotation" type="checkbox" value="">
-                    </div>
-                </div>
+                        <!-- AggressiveOpts   -->
+                        <div class="form-group">
+                            <label class="col-sm-5" for="aggressiveOpts">Enable Aggressive Opts</label>
+                            <div class="col-sm-5">
+                                <input id="aggressiveOpts" type="checkbox" value="">
+                            </div>
+                        </div>
 
 
-                <!-- HeapDump on OnOutOfMemoryError   -->
-                <div class="form-group">
-                    <label class="col-sm-5" for="heapDumpOnOOMemory">Enable HeapDump on OutOfMemoryError</label>
-                    <div class="col-sm-5">
-                        <input id="heapDumpOnOOMemory" type="checkbox" value="">
-                    </div>
-                </div>
+                        <!-- Enable Large pages   -->
+                        <div class="form-group">
+                            <label class="col-sm-5" for="largePages">Enable Large Pages</label>
+                            <div class="col-sm-5">
+                                <input id="largePages" type="checkbox" value="">
+                            </div>
+                        </div>
 
-                <!-- ErrorFile   -->
-                <div class="form-group">
-                    <label class="col-sm-5" for="enableErrorFile">Enable ErrorData on exit</label>
-                    <div class="col-sm-5">
-                        <input id="enableErrorFile" type="checkbox" value="">
+
                     </div>
                 </div>
 
 
             </div>
-        </div>
-
-        <!-- Performance JVM Flags -->
-        <div class="panel panel-default">
-            <div class="panel-heading">Performance</div>
-            <div class="panel-body">
 
 
-                <!-- AggressiveOpts   -->
-                <div class="form-group">
-                    <label class="col-sm-5" for="aggressiveOpts">Enable Aggressive Opts</label>
-                    <div class="col-sm-5">
-                        <input id="aggressiveOpts" type="checkbox" value="">
-                    </div>
-                </div>
-
-
-                <!-- Enable Large pages   -->
-                <div class="form-group">
-                    <label class="col-sm-5" for="largePages">Enable Large Pages</label>
-                    <div class="col-sm-5">
-                        <input id="largePages" type="checkbox" value="">
-                    </div>
-                </div>
-
+            <div id="additional" class="tab-pane fade">
+                <br/>
 
             </div>
         </div>
-
 
         <!-- JVM Reference Options -->
         <label class="col-sm-5" for="gcCollector">Summary</label>

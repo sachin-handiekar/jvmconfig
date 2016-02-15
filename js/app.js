@@ -2,7 +2,22 @@
  * app.js
  */
 
-// JVM Mode -  server or clients
+var tooltipMap = {}
+
+tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
+tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
+tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
+tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
+tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
+tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
+tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
+tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
+tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
+
+
+
+
+
 var jvmMode = "-server";
 var space = " ";
 var gcCollectorAlgorithm = "";
@@ -13,6 +28,7 @@ var aggressiveOpts = "";
 var errorFile = "";
 var largePages = "";
 
+
 /**
  * Function to invoke on document ready.
  */
@@ -20,9 +36,45 @@ $(document).ready(function () {
 
     resetJVMOptions();
 
+    $("i").each(function() {
+
+        var id = this.id;
+
+        var toolTip = tooltipMap[id];
+        $("#"+id).attr("title", toolTip);
+
+
+    });
+
     $("[data-toggle=tooltip]").tooltip();
 
+
+
+
+
+
+    $("input[type='button']").click(function(){
+        var radioValue = $("input[name='jdkVersionRadioGroup']:checked").val();
+        if(radioValue){
+            alert("JDK Version - " + radioValue);
+        }
+    });
+
+
+
+
 });
+
+
+// tooltip click event
+$('i').click(function(){
+
+alert("--> " + this.id);
+
+
+});
+
+
 
 
 /**
@@ -52,6 +104,9 @@ $('#gcCollector').on('change', function () {
 function resetJVMOptions() {
     // Hide the G1 extra option panel
     $("#g1ExtraFlags").addClass('hidden');
+
+
+
 
 
     $("#printGCDetails").text("unchecked");
@@ -131,6 +186,4 @@ function addTextToJVMSummary(val) {
         $("#jvmFlagResult").append(val);
         $("#jvmFlagResult").append(space);
     }
-
-
 }
