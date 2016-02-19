@@ -2,22 +2,6 @@
  * app.js
  */
 
-var tooltipMap = {}
-
-tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
-tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
-tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
-tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
-tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
-tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
-tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
-tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
-tooltipMap['tooltip-jvmVendor'] = 'JVM vendor';
-
-
-
-
-
 var jvmMode = "-server";
 var space = " ";
 var gcCollectorAlgorithm = "";
@@ -27,53 +11,64 @@ var heapDumpOnOOMemory = "";
 var aggressiveOpts = "";
 var errorFile = "";
 var largePages = "";
+var jdkVersion = "";
+
+
+var tooltipMap = {}
+
+/**
+ * Populate Tooltip from the tooltip.json file.
+ */
+function populateTooltip() {
+    $.getJSON('data/tooltip.json', function (data) {
+        $.each(data.tooltips, function (key, val) {
+            tooltipMap['tooltip-' + val.id] = val.tooltip;
+        });
+    });
+
+    $("i").each(function () {
+        var id = this.id;
+        $("#" + id).tooltip({
+            "title": function () {
+                return "" + tooltipMap[id] + "";
+            }
+        });
+    });
+}
 
 
 /**
  * Function to invoke on document ready.
  */
 $(document).ready(function () {
+    populateTooltip();
 
     resetJVMOptions();
 
-    $("i").each(function() {
-
-        var id = this.id;
-
-        var toolTip = tooltipMap[id];
-        $("#"+id).attr("title", toolTip);
-
-
-    });
-
     $("[data-toggle=tooltip]").tooltip();
 
+    // Initial value for jdkVersion
+    jdkVersion = $("input:radio[name='jdkVersionRadioGroup']:checked").val();
 
 
+    $("input[name='jdkVersionRadioGroup']").click(function () {
+        jdkVersion = $("input:radio[name='jdkVersionRadioGroup']:checked").val();
 
 
+        if (jdkVersion == 'jdkVersion8') {
+            $("#metaSpace").removeClass('hidden');
+            $("#permSize").addClass('hidden');
 
-    $("input[type='button']").click(function(){
-        var radioValue = $("input[name='jdkVersionRadioGroup']:checked").val();
-        if(radioValue){
-            alert("JDK Version - " + radioValue);
+
+        } else {
+            $("#metaSpace").addClass('hidden');
+            $("#permSize").removeClass('hidden');
+
         }
+
     });
 
-
-
-
 });
-
-
-// tooltip click event
-$('i').click(function(){
-
-alert("--> " + this.id);
-
-
-});
-
 
 
 
@@ -104,10 +99,8 @@ $('#gcCollector').on('change', function () {
 function resetJVMOptions() {
     // Hide the G1 extra option panel
     $("#g1ExtraFlags").addClass('hidden');
-
-
-
-
+    $("#metaSpace").addClass('hidden');
+    $("#permSize").removeClass('hidden');
 
     $("#printGCDetails").text("unchecked");
     $("#enableGCLogRotation").text("unchecked");
@@ -131,7 +124,7 @@ $("form :input").change(function () {
     validateCheckboxInput("aggressiveOpts", "-XX:+AggressiveOpts");
 
     //errorFile
-    validateCheckboxInput("errorFile", "-XX:ErrorFile=C:/log/java/java_error.log");
+    validateCheckboxInput("errorFile", "-XX:ErrorFile=/path/to/error_file.log");
 
     //largePages
     validateCheckboxInput("largePages", "-XX:+UseLargePages");

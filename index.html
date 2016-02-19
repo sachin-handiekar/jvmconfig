@@ -61,20 +61,21 @@
 
 
         <!-- JDK Version -->
-        <div class="form-group">
+        <div id="jdkVersionSelection" class="form-group">
 
             <label class="col-sm-5" for="jdkVersion">JDK Version <i id="tooltip-jdkVersion" data-toggle="tooltip"
-                                                                    title="JDK Version"
                                                                     class='glyphicon glyphicon-info-sign'></i>
             </label>
 
             <div class="col-sm-5" id="jdkVersion">
                 <div class="radio">
-                    <label><input id="jdkVersion67" checked="checked" type="radio" name="jdkVersionRadioGroup">JDK
+                    <label><input id="jdkVersion67" value="jdkVersion67" checked="checked" type="radio"
+                                  name="jdkVersionRadioGroup">JDK
                         6/7</label>
                 </div>
                 <div class="radio">
-                    <label><input id="jdkVersion8" type="radio" name="jdkVersionRadioGroup">JDK 8</label>
+                    <label><input id="jdkVersion8" value="jdkVersion8" type="radio" name="jdkVersionRadioGroup">JDK
+                        8</label>
                 </div>
 
             </div>
@@ -83,11 +84,11 @@
 
 
         <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#memory">Memory</a></li>
-            <li><a data-toggle="tab" href="#garbageCollector">Garbage Collector</a></li>
-            <li><a data-toggle="tab" href="#debugging">Debugging</a></li>
-            <li><a data-toggle="tab" href="#performance">Performance</a></li>
-            <li><a data-toggle="tab" href="#additional">Additional</a></li>
+        <li class="active"><a data-toggle="tab" href="#memory">Memory</a></li>
+        <li><a data-toggle="tab" href="#garbageCollector">Garbage Collector</a></li>
+        <li><a data-toggle="tab" href="#debugging">Debugging</a></li>
+        <li><a data-toggle="tab" href="#performance">Performance</a></li>
+        <li><a data-toggle="tab" href="#additional">Additional</a></li>
         </ul>
 
         <div class="tab-content">
@@ -98,7 +99,7 @@
                 <!-- Memory -->
                 <div class="panel panel-default">
                     <div class="panel-heading">Heap Size <i
-                            id="tooltip-heapSize" data-toggle="tooltip" title="JVM Heap size"
+                            id="tooltip-heapSize" data-toggle="tooltip"
                             class='glyphicon glyphicon-info-sign'></i></div>
                     <div class="panel-body">
 
@@ -128,10 +129,10 @@
                     </div>
                 </div>
 
-                <div class="panel panel-default">
+                <div id="permSize" class="panel panel-default">
 
                     <div class="panel-heading">Permsize <i
-                            id="tooltip-permSize" data-toggle="tooltip" title="Perm Size"
+                            id="tooltip-permSize" data-toggle="tooltip"
                             class='glyphicon glyphicon-info-sign'></i></div>
                     <div class="panel-body">
 
@@ -151,6 +152,7 @@
 
                                 <div class="col-xs-3">
                                     <select class="form-control" id="permSizeSelect">
+                                        <option value="mb">Kb</option>
                                         <option value="mb">Mb</option>
                                         <option value="gb">Gb</option>
                                     </select>
@@ -158,15 +160,15 @@
 
                             </div>
                         </div>
-                        <input type="checkbox"> Apply permSize options
+                        <input type="checkbox"> Apply permSize
 
                     </div>
                 </div>
 
-                <div class="panel panel-default">
+                <div id="metaSpace" class="panel panel-default">
 
                     <div class="panel-heading">Metaspace <i
-                            id="tooltip-metaSpace" data-toggle="tooltip" title="Metaspace"
+                            id="tooltip-metaSpace" data-toggle="tooltip"
                             class='glyphicon glyphicon-info-sign'></i></div>
                     <div class="panel-body">
 
@@ -186,6 +188,7 @@
 
                                 <div class="col-xs-3">
                                     <select class="form-control" id="metaSpaceSelect">
+                                        <option value="mb">Kb</option>
                                         <option value="mb" selected>Mb</option>
                                         <option value="gb">Gb</option>
                                     </select>
@@ -195,7 +198,7 @@
 
 
                         </div>
-                        <input type="checkbox"> Apply permSize options
+                        <input type="checkbox"> Apply metaspace
 
 
                     </div>
@@ -206,13 +209,13 @@
 
 
             <div id="garbageCollector" class="tab-pane fade">
-
+                <br/>
                 <!-- GC Collector -->
                 <div class="form-group">
                     <label class="col-sm-5" for="gcCollector">GC Collector <i id="tooltip-gcCollector"
                                                                               data-toggle="tooltip"
-                                                                              title="A JVM Vendor"
-                                                                              class='glyphicon glyphicon-info-sign'></i></label>
+                                                                              class='glyphicon glyphicon-info-sign'></i>
+                    </label>
 
                     <div class="col-sm-5">
                         <select class="form-control" id="gcCollector">
@@ -234,13 +237,99 @@
                         <!-- Max GC Pause Time   -->
                         <div class="form-group">
                             <label class="col-sm-5" for="g1gc-maxGCPauseTime">Set Max. GC pause time <i
-                                    id="tooltip-g1gc-maxGCPauseTime" data-toggle="tooltip" title="A JVM Vendor"
+                                    id="tooltip-g1gc-maxGCPauseTime" data-toggle="tooltip"
                                     class='glyphicon glyphicon-info-sign'></i></label>
                             <div class="col-sm-5">
-                                <input id="g1gc-maxGCPauseTime" type="checkbox" value="">
+                                <input id="g1gc-maxGCPauseTime" type="text" value="">
                             </div>
                         </div>
 
+
+                        <!-- -XX:InitiatingHeapOccupancyPercent=n   -->
+                        <div class="form-group">
+                            <label class="col-sm-5" for="g1gc-InitiatingHeapOccupancyPercent">Initiating Heap Occupancy
+                                Percent<i
+                                        id="tooltip-g1gc-InitiatingHeapOccupancyPercent" data-toggle="tooltip"
+                                        class='glyphicon glyphicon-info-sign'></i></label>
+                            <div class="col-sm-5">
+                                <input id="g1gc-InitiatingHeapOccupancyPercent" type="text" value="">
+                            </div>
+                        </div>
+
+                        <!-- -XX:NewRatio=n	   -->
+                        <div class="form-group">
+                            <label class="col-sm-5" for="g1gc-NewRatio">New Ratio <i
+                                    id="tooltip-g1gc-NewRatio" data-toggle="tooltip"
+                                    class='glyphicon glyphicon-info-sign'></i></label>
+                            <div class="col-sm-5">
+                                <input id="g1gc-NewRatio" type="text" value="">
+                            </div>
+                        </div>
+
+                        <!-- -XX:SurvivorRatio=n		   -->
+                        <div class="form-group">
+                            <label class="col-sm-5" for="g1gc-SurvivorRatio">Survivor Ration <i
+                                    id="tooltip-g1gc-SurvivorRatio" data-toggle="tooltip"
+                                    class='glyphicon glyphicon-info-sign'></i></label>
+                            <div class="col-sm-5">
+                                <input id="g1gc-SurvivorRatio" type="text" value="">
+                            </div>
+                        </div>
+
+
+                        <!--  -XX:MaxTenuringThreshold=n		   -->
+                        <div class="form-group">
+                            <label class="col-sm-5" for="g1gc-MaxTenuringThreshold">Set Max. Tenuring Threshold <i
+                                    id="tooltip-g1gc-MaxTenuringThreshold" data-toggle="tooltip"
+                                    class='glyphicon glyphicon-info-sign'></i></label>
+                            <div class="col-sm-5">
+                                <input id="g1gc-MaxTenuringThreshold" type="text" value="">
+                            </div>
+                        </div>
+
+
+                        <!--  -XX:ParallelGCThreads=n			   -->
+                        <div class="form-group">
+                            <label class="col-sm-5" for="g1gc-ParallelGCThreads">Parallel GC Threads <i
+                                    id="tooltip-g1gc-ParallelGCThreads" data-toggle="tooltip" title="A JVM Vendor"
+                                    class='glyphicon glyphicon-info-sign'></i></label>
+                            <div class="col-sm-5">
+                                <input id="g1gc-ParallelGCThreads" type="text" value="">
+                            </div>
+                        </div>
+
+
+                        <!-- -XX:ConcGCThreads=n				   -->
+                        <div class="form-group">
+                            <label class="col-sm-5" for="g1gc-ConcGCThreads">Concurrent GC Threads <i
+                                    id="tooltip-g1gc-ConcGCThreads" data-toggle="tooltip"
+                                    class='glyphicon glyphicon-info-sign'></i></label>
+                            <div class="col-sm-5">
+                                <input id="g1gc-ConcGCThreads" type="text" value="">
+                            </div>
+                        </div>
+
+
+                        <!-- -XX:G1ReservePercent=n				   -->
+                        <div class="form-group">
+                            <label class="col-sm-5" for="g1gc-G1ReservePercent">G1 Reserve Percent <i
+                                    id="tooltip-g1gc-G1ReservePercent" data-toggle="tooltip"
+                                    class='glyphicon glyphicon-info-sign'></i></label>
+                            <div class="col-sm-5">
+                                <input id="g1gc-G1ReservePercent" type="text" value="">
+                            </div>
+                        </div>
+
+
+                        <!-- -XX:G1HeapRegionSize=n				   -->
+                        <div class="form-group">
+                            <label class="col-sm-5" for="g1gc-G1HeapRegionSize">G1 Heap Region Size <i
+                                    id="tooltip-g1gc-G1HeapRegionSize" data-toggle="tooltip"
+                                    class='glyphicon glyphicon-info-sign'></i></label>
+                            <div class="col-sm-5">
+                                <input id="g1gc-G1HeapRegionSize" type="text" value="">
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -262,7 +351,6 @@
                             <label class="col-sm-5" for="printGCDetails">Enable GC Logging <i
                                     id="tooltip-printGCDetails"
                                     data-toggle="tooltip"
-                                    title="A JVM Vendor"
                                     class='glyphicon glyphicon-info-sign'></i></label>
                             <div class="col-sm-5">
                                 <input id="printGCDetails" type="checkbox" value="">
@@ -273,7 +361,7 @@
                         <!-- Enable GC Log Rotation   -->
                         <div class="form-group">
                             <label class="col-sm-5" for="enableGCLogRotation">Enable GC Log Rotation <i
-                                    id="tooltip-enableGCLogRotation" data-toggle="tooltip" title="A JVM Vendor"
+                                    id="tooltip-enableGCLogRotation" data-toggle="tooltip"
                                     class='glyphicon glyphicon-info-sign'></i></label>
                             <div class="col-sm-5">
                                 <input id="enableGCLogRotation" type="checkbox" value="">
