@@ -14,6 +14,13 @@ var largePages = "";
 var jdkVersion = "";
 
 
+var minHeapSize = "";
+var maxHeapSize = "";
+
+var permSize = "";
+var metaSpace = "";
+
+
 var tooltipMap = {}
 
 /**
@@ -73,7 +80,6 @@ $(document).ready(function () {
 });
 
 
-
 /**
  * GC Algorithm Selector
  */
@@ -90,6 +96,8 @@ $('#gcCollector').on('change', function () {
     } else if (gcAlgo == 'parallel') {
         gcCollectorAlgorithm = '-XX:+UseParNewGC -XX:+UseConcMarkSweepGC';
         $("#g1ExtraFlags").addClass('hidden');
+    } else {
+        gcCollectorAlgorithm = '';
     }
 
 
@@ -109,10 +117,47 @@ function resetJVMOptions() {
 }
 
 
+$('#minHeapSize').on('input', function () {
+    updateInputBox('minHeapSize', $(this).val(), 'heapSizeSelect', '-Xms');
+});
+
+$('#maxHeapSize').on('input', function () {
+    updateInputBox('maxHeapSize', $(this).val(), 'heapSizeSelect', '-Xmx');
+});
+
+
+
+function updateInputBox(varName, varValue, sizeUnitId, prefix) {
+    var sizeUnit = '';
+    if (sizeUnitId != null) {
+        sizeUnit = $('#' + sizeUnitId).val();
+    }
+
+    if (isEmpty(varValue)) {
+        this[varName] = prefix + varValue + sizeUnit;
+    } else {
+        this[varName] = '';
+    }
+}
+
+
+function isEmpty(data) {
+    return $.trim(data) != '';
+}
+
+
 /**
  * Global Change Listener
  */
 $("form :input").change(function () {
+
+    validateAndRefreshJVMOptions();
+});
+
+
+function validateAndRefreshJVMOptions() {
+
+
     // Print GC Details
     validateCheckboxInput("printGCDetails", "-verbose:gc -XX:+PrintGCDetails");
 
@@ -131,8 +176,15 @@ $("form :input").change(function () {
     //largePages
     validateCheckboxInput("largePages", "-XX:+UseLargePages");
 
+
+
+
     refreshJVMFlagRef();
-});
+}
+
+function getIdVal(data) {
+    return $("#" + data).attr('value');
+}
 
 
 function validateCheckboxInput(chkboxId, jvmFlag) {
@@ -153,6 +205,11 @@ function refreshJVMFlagRef() {
     // Set the JVM Mode
     addTextToJVMSummary(jvmMode);
 
+    // Heap Size
+    addTextToJVMSummary(minHeapSize);
+    addTextToJVMSummary(maxHeapSize);
+
+
     // GC Collector Algorithm
     addTextToJVMSummary(gcCollectorAlgorithm);
 
@@ -164,6 +221,9 @@ function refreshJVMFlagRef() {
 
     // GC Log Rotation
     addTextToJVMSummary(heapDumpOnOOMemory);
+
+    //Error File
+    addTextToJVMSummary(errorFile);
 
     //Enable AggressiveOpts
     addTextToJVMSummary(aggressiveOpts);
