@@ -84,11 +84,11 @@
 
 
         <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#memory">Memory</a></li>
-        <li><a data-toggle="tab" href="#garbageCollector">Garbage Collector</a></li>
-        <li><a data-toggle="tab" href="#debugging">Debugging</a></li>
-        <li><a data-toggle="tab" href="#performance">Performance</a></li>
-        <li><a data-toggle="tab" href="#additional">Additional</a></li>
+            <li class="active"><a data-toggle="tab" href="#memory">Memory</a></li>
+            <li><a data-toggle="tab" href="#garbageCollector">Garbage Collector</a></li>
+            <li><a data-toggle="tab" href="#debugging">Debugging</a></li>
+            <li><a data-toggle="tab" href="#performance">Performance</a></li>
+            <li><a data-toggle="tab" href="#additional">Additional</a></li>
         </ul>
 
         <div class="tab-content">
@@ -341,52 +341,45 @@
                 <br/>
 
                 <!-- Debugging JVM Flags -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">Debugging</div>
-                    <div class="panel-body">
 
 
-                        <!-- Enable GC Logging    -->
-                        <div class="form-group">
-                            <label class="col-sm-5" for="printGCDetails">Enable GC Logging <i
-                                    id="tooltip-printGCDetails"
-                                    data-toggle="tooltip"
-                                    class='glyphicon glyphicon-info-sign'></i></label>
-                            <div class="col-sm-5">
-                                <input id="printGCDetails" type="checkbox" value="">
-                            </div>
-                        </div>
+                <!-- Enable GC Logging    -->
+                <div class="form-group">
+                    <label class="col-sm-5" for="printGCDetails">Enable GC Logging <i
+                            id="tooltip-printGCDetails"
+                            data-toggle="tooltip"
+                            class='glyphicon glyphicon-info-sign'></i></label>
+                    <div class="col-sm-5">
+                        <input id="printGCDetails" type="checkbox" value="">
+                    </div>
+                </div>
 
 
-                        <!-- Enable GC Log Rotation   -->
-                        <div class="form-group">
-                            <label class="col-sm-5" for="enableGCLogRotation">Enable GC Log Rotation <i
-                                    id="tooltip-enableGCLogRotation" data-toggle="tooltip"
-                                    class='glyphicon glyphicon-info-sign'></i></label>
-                            <div class="col-sm-5">
-                                <input id="enableGCLogRotation" type="checkbox" value="">
-                            </div>
-                        </div>
+                <!-- Enable GC Log Rotation   -->
+                <div class="form-group">
+                    <label class="col-sm-5" for="enableGCLogRotation">Enable GC Log Rotation <i
+                            id="tooltip-enableGCLogRotation" data-toggle="tooltip"
+                            class='glyphicon glyphicon-info-sign'></i></label>
+                    <div class="col-sm-5">
+                        <input id="enableGCLogRotation" type="checkbox" value="">
+                    </div>
+                </div>
 
 
-                        <!-- HeapDump on OnOutOfMemoryError   -->
-                        <div class="form-group">
-                            <label class="col-sm-5" for="heapDumpOnOOMemory">Enable HeapDump on
-                                OutOfMemoryError</label>
-                            <div class="col-sm-5">
-                                <input id="heapDumpOnOOMemory" type="checkbox" value="">
-                            </div>
-                        </div>
+                <!-- HeapDump on OnOutOfMemoryError   -->
+                <div class="form-group">
+                    <label class="col-sm-5" for="heapDumpOnOOMemory">Enable HeapDump on
+                        OutOfMemoryError</label>
+                    <div class="col-sm-5">
+                        <input id="heapDumpOnOOMemory" type="checkbox" value="">
+                    </div>
+                </div>
 
-                        <!-- ErrorFile   -->
-                        <div class="form-group">
-                            <label class="col-sm-5" for="enableErrorFile">Enable ErrorData on exit</label>
-                            <div class="col-sm-5">
-                                <input id="enableErrorFile" type="checkbox" value="">
-                            </div>
-                        </div>
-
-
+                <!-- ErrorFile   -->
+                <div class="form-group">
+                    <label class="col-sm-5" for="enableErrorFile">Enable ErrorData on exit</label>
+                    <div class="col-sm-5">
+                        <input id="enableErrorFile" type="checkbox" value="">
                     </div>
                 </div>
 

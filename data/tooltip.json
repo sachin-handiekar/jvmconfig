@@ -5,8 +5,72 @@
       "tooltip": "JVM Vendor"
     },
     {
-      "id": "jvmVendor",
-      "tooltip": "JVM Vendor"
+      "id": "jdkVersion",
+      "tooltip": "JDK Version"
+    },
+    {
+      "id": "heapSize",
+      "tooltip": "Heap Size"
+    },
+    {
+      "id": "permSize",
+      "tooltip": "Perm Size"
+    },
+    {
+      "id": "metaSpace",
+      "tooltip": "Meta space"
+    },
+    {
+      "id": "gcCollector",
+      "tooltip": "GC Collector Algorithm"
+    },
+    {
+      "id": "g1gc-maxGCPauseTime",
+      "tooltip": "GC Collector Algorithm"
+    },
+    {
+      "id": "g1gc-InitiatingHeapOccupancyPercent",
+      "tooltip": "GC Collector Algorithm"
+    },
+    {
+      "id": "g1gc-NewRatio",
+      "tooltip": "GC Collector Algorithm"
+    },
+    {
+      "id": "g1gc-SurvivorRatio",
+      "tooltip": "GC Collector Algorithm"
+    },
+    {
+      "id": "g1gc-MaxTenuringThreshold",
+      "tooltip": "GC Collector Algorithm"
+    },
+    {
+      "id": "g1gc-ParallelGCThreadse",
+      "tooltip": "GC Collector Algorithm"
+    },
+    {
+      "id": "g1gc-ConcGCThreads",
+      "tooltip": "GC Collector Algorithm"
+    },
+    {
+      "id": "g1gc-G1ReservePercent",
+      "tooltip": "GC Collector Algorithm"
+    },
+    {
+      "id": "g1gc-G1HeapRegionSize",
+      "tooltip": "GC Collector Algorithm"
+    },
+    {
+      "id": "printGCDetails",
+      "tooltip": "Print GC Details"
+    },
+    {
+      "id": "enableGCLogRotation",
+      "tooltip": "Enable GC Log Rotation"
+    },
+    {
+      "id": "heapDumpOnOOMemory",
+      "tooltip": "Heap dump on OutOfMemory Error"
     }
   ]
 }
