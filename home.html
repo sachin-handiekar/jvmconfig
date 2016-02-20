@@ -12,7 +12,7 @@
     <meta name="author" content="Sachin Handiekar">
 
     <link rel="icon" href="favicon.png" sizes="32x32">
-    <title>jvmConfig - JVM Options Configuration Tool (GC, Memory, Performance & many more)</title>
+    <title>JVM Options Configuration Tool (GC, Memory, Performance & more)</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
@@ -78,9 +78,7 @@
                     <label><input id="jdkVersion8" value="jdkVersion8" type="radio" name="jdkVersionRadioGroup">JDK
                         8</label>
                 </div>
-
             </div>
-
         </div>
 
 
@@ -120,13 +118,14 @@
 
                                 <div class="col-xs-3">
                                     <select class="form-control" id="heapSizeSelect">
+                                        <option value="kb">Kb</option>
                                         <option value="mb">Mb</option>
                                         <option value="gb">Gb</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <input type="checkbox"> Apply heapSize options
+                        <input type="checkbox"> Apply heapSize
                     </div>
                 </div>
 
@@ -139,7 +138,7 @@
 
                         <!-- PermSize   -->
                         <div class="form-group ">
-                            <div class="col-sm-7">
+                            <div class="col-sm-8">
 
                                 <!-- Min Heap Size -->
                                 <div class="col-xs-3">
@@ -175,7 +174,7 @@
 
                         <!-- MetaSpace   -->
                         <div id="metaSpaceDiv" class="form-group ">
-                            <div class="col-sm-7">
+                            <div class="col-sm-8">
 
                                 <!-- Min Heap Size -->
                                 <div class="col-xs-3">
@@ -227,7 +226,6 @@
                         </select>
                     </div>
                 </div>
-
 
                 <!-- Garbage First (G1) Garbage Collection Options -->
                 <div id="g1ExtraFlags" class="panel panel-default">
