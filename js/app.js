@@ -23,11 +23,13 @@ function populateTooltip() {
     $.getJSON('data/tooltip.json', function (data) {
         $.each(data.tooltips, function (key, val) {
             tooltipMap['tooltip-' + val.id] = val.tooltip;
+            console.log('tooltip-' + val.id);
         });
     });
 
     $("i").each(function () {
         var id = this.id;
+        console.log(id);
         $("#" + id).tooltip({
             "title": function () {
                 return "" + tooltipMap[id] + "";
