@@ -14,19 +14,16 @@
 
     <link rel="icon" href="favicon.png" sizes="32x32">
     <title>JVM Options Configuration Tool (GC, Memory, Performance & more)</title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-    <!-- Optional theme
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-     -->
-    <link href="http://sachin-handiekar.github.io/jvmconfig/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-    <link href="http://sachin-handiekar.github.io/jvmconfig/css/jumbotron-narrow.css" rel="stylesheet">
+     <link rel="stylesheet" href="https://bootswatch.com/united/bootstrap.css">
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+     <link href="css/jumbotron-narrow.css" rel="stylesheet">
+    <!--
+        Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]>
     <script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="http://sachin-handiekar.github.io/jvmconfig/js/ie-emulation-modes-warning.js"></script>
+    <script src="js/ie-emulation-modes-warning.js"></script>
     <style type="text/css"></style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -36,12 +33,27 @@
     <![endif]-->
 
 
+<style>
+
+    .container {
+        background-color: #ffffff;
+    }
+
+    body {
+
+        background: url("./imgs/background/new_year_background.png") repeat;
+    }
+
+</style>
+
+
 </head>
 
 <body>
 
 <div class="container">
-    <div class="header clearfix">
+
+     <div class="header clearfix">
         <h1 class="text-muted">JVM Options Configuration Tool</h1>
         A JVM config tool which can be used to see various flags/parameters used in changing behaviour & debugging
         features within the JVM.
@@ -135,7 +147,7 @@
                 <!-- Permsize -->
                 <div id="permSize" class="form-group ">
 
-                    <label class="col-sm-5" for="jdkVersion">Perm Size <i
+                    <label class="col-sm-5" for="permSize">Perm Size <i
                             id="tooltip-permSize" data-toggle="tooltip"
                             class='glyphicon glyphicon-info-sign'></i>
                     </label>
@@ -163,7 +175,7 @@
                 <!-- Metaspace -->
                 <div id="metaSpace" class="form-group ">
 
-                    <label class="col-sm-5" for="jdkVersion">Metaspace <i
+                    <label class="col-sm-5" for="metaspace">Metaspace <i
                             id="tooltip-metaSpace" data-toggle="tooltip"
                             class='glyphicon glyphicon-info-sign'></i>
                     </label>
@@ -329,7 +341,7 @@
 
                 <!-- Enable GC Logging    -->
                 <div class="form-group">
-                    <label class="col-sm-5" for="printGCDetails">Enable GC Logging <i
+                    <label class="col-sm-7" for="printGCDetails">Enable GC Logging <i
                             id="tooltip-printGCDetails"
                             data-toggle="tooltip"
                             class='glyphicon glyphicon-info-sign'></i></label>
@@ -341,7 +353,7 @@
 
                 <!-- Enable GC Log Rotation   -->
                 <div class="form-group">
-                    <label class="col-sm-5" for="enableGCLogRotation">Enable GC Log Rotation <i
+                    <label class="col-sm-7" for="enableGCLogRotation">Enable GC Log Rotation <i
                             id="tooltip-enableGCLogRotation" data-toggle="tooltip"
                             class='glyphicon glyphicon-info-sign'></i></label>
                     <div class="col-sm-5">
@@ -352,7 +364,7 @@
 
                 <!-- HeapDump on OnOutOfMemoryError   -->
                 <div class="form-group">
-                    <label class="col-sm-5" for="heapDumpOnOOMemory">Enable HeapDump on OutOfMemoryError <i
+                    <label class="col-sm-7" for="heapDumpOnOOMemory">Enable HeapDump on OutOfMemoryError <i
                             id="tooltip-heapDumpOnOOMemory" data-toggle="tooltip"
                             class='glyphicon glyphicon-info-sign'></i></label>
                     <div class="col-sm-5">
@@ -362,7 +374,7 @@
 
                 <!-- ErrorFile   -->
                 <div class="form-group">
-                    <label class="col-sm-5" for="errorFile">Save Error data on a file <i
+                    <label class="col-sm-7" for="errorFile">Save Error data on a file <i
                             id="tooltip-enableErrorFile" data-toggle="tooltip"
                             class='glyphicon glyphicon-info-sign'></i></label>
                     <div class="col-sm-5">
@@ -370,6 +382,36 @@
                     </div>
                 </div>
 
+                <!-- Verbose Commands (jni, gc & class) -->
+                <!-- Verbose : JNI   -->
+                <div class="form-group">
+                    <label class="col-sm-7" for="verboseJNI">Verbose logging of JNI <i
+                            id="tooltip-verboseJNI" data-toggle="tooltip"
+                            class='glyphicon glyphicon-info-sign'></i></label>
+                    <div class="col-sm-5">
+                        <input id="verboseJNI" type="checkbox" value="">
+                    </div>
+                </div>
+
+                <!-- Verbose : GC   -->
+                <div class="form-group">
+                    <label class="col-sm-7" for="verboseGC">Verbose logging of garbage collection (GC) information <i
+                            id="tooltip-verboseGC" data-toggle="tooltip"
+                            class='glyphicon glyphicon-info-sign'></i></label>
+                    <div class="col-sm-5">
+                        <input id="verboseGC" type="checkbox" value="">
+                    </div>
+                </div>
+
+                <!-- Verbose : class   -->
+                <div class="form-group">
+                    <label class="col-sm-7" for="verboseClass">Verbose logging of class loading and unloading <i
+                            id="tooltip-verboseClass" data-toggle="tooltip"
+                            class='glyphicon glyphicon-info-sign'></i></label>
+                    <div class="col-sm-5">
+                        <input id="verboseClass" type="checkbox" value="">
+                    </div>
+                </div>
 
             </div>
 
@@ -441,6 +483,7 @@
              data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 
 
+
 </div> <!-- /container -->
 
 
@@ -464,7 +507,7 @@
 </script>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="http://sachin-handiekar.github.io/jvmconfig/js/ie10-viewport-bug-workaround.js"></script>
+<script src="js/ie10-viewport-bug-workaround.js"></script>
 
 <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
@@ -472,7 +515,7 @@
         integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
         crossorigin="anonymous"></script>
 
-<script type='text/javascript' src="http://sachin-handiekar.github.io/jvmconfig/js/app.js"></script>
+<script type='text/javascript' src="js/app.js"></script>
 
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4e3c6a1d62498f68"></script>
