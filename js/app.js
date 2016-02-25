@@ -30,6 +30,13 @@ var verboseGC = '';
 var verboseClass = '';
 var verboseJNI = '';
 
+var printGCApplicationConcurrentTime = '';
+var printGCApplicationStoppedTime = '';
+var printAssembly = '';
+var printClassHistogram = '';
+var printConcurrentLocks = '';
+var unsyncloadClass = '';
+
 
 
 var inputBindAttrs = 'DOMAttrModified textInput input change keypress paste focus'
@@ -208,7 +215,7 @@ function validateAndRefreshJVMOptions() {
 
 
     // Print GC Details
-    validateCheckboxInput("printGCDetails", "-verbose:gc -XX:+PrintGCDetails");
+    validateCheckboxInput("printGCDetails", "-XX:+PrintGCDetails");
 
     // Log Rotation
     validateCheckboxInput("enableGCLogRotation", "-Xloggc:gc.log.'date +%Y%m%d%H%M%S' -XX:+UseGCLogFileRotation");
@@ -230,11 +237,16 @@ function validateAndRefreshJVMOptions() {
     validateCheckboxInput("verboseClass", "-verbose:class");
 
 
+
+
+    validateCheckboxInput("printGCApplicationConcurrentTime", "-XX:+PrintGCApplicationConcurrentTime");
+    validateCheckboxInput("printGCApplicationStoppedTime", "-XX:+PrintGCApplicationStoppedTime");
+    validateCheckboxInput("printAssembly", "-XX:+PrintAssembly");
+    validateCheckboxInput("printClassHistogram", "-XX:+PrintClassHistogram");
+    validateCheckboxInput("printConcurrentLocks", "-XX:+PrintConcurrentLocks");
+
     //largePages
     validateCheckboxInput("largePages", "-XX:+UseLargePages");
-
-
-
 
     refreshJVMFlagRef();
 }
@@ -279,9 +291,16 @@ function refreshJVMFlagRef() {
 
 
 
-
     // GC Collector Algorithm
     addTextToJVMSummary(gcCollectorAlgorithm);
+
+
+
+    // Verbose Commands
+    addTextToJVMSummary(verboseGC);
+    addTextToJVMSummary(verboseJNI);
+    addTextToJVMSummary(verboseClass);
+
 
     // Print GC Details
     addTextToJVMSummary(printGCDetails);
@@ -295,10 +314,12 @@ function refreshJVMFlagRef() {
     //Error File
     addTextToJVMSummary(errorFile);
 
-    // Verbose Commands
-    addTextToJVMSummary(verboseGC);
-    addTextToJVMSummary(verboseJNI);
-    addTextToJVMSummary(verboseClass);
+    addTextToJVMSummary(printGCApplicationConcurrentTime);
+    addTextToJVMSummary(printGCApplicationStoppedTime);
+    addTextToJVMSummary(printAssembly);
+    addTextToJVMSummary(printClassHistogram);
+    addTextToJVMSummary(printConcurrentLocks);
+
 
 
     //Enable AggressiveOpts
