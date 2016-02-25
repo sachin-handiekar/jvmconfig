@@ -13,15 +13,26 @@ var errorFile = "";
 var largePages = "";
 var jdkVersion = "";
 
-
 var minHeapSize = "";
 var maxHeapSize = "";
 
-var permSize = "";
-var metaSpace = "";
+var defaultPermSize = "";
+var maxPermSize = "";
 
+var defaultMetaspace = "";
+var maxMetaspace = "";
+
+var gcExtraFlags = {}
 
 var tooltipMap = {}
+
+var verboseGC = '';
+var verboseClass = '';
+var verboseJNI = '';
+
+
+
+var inputBindAttrs = 'DOMAttrModified textInput input change keypress paste focus'
 
 /**
  * Populate Tooltip from the tooltip.json file.
@@ -116,28 +127,66 @@ function resetJVMOptions() {
     $("#enableGCLogRotation").text("unchecked");
 }
 
+/**
+ * Input box binding
+ */
 
-$('#minHeapSize').on('input', function () {
-    updateInputBox('minHeapSize', $(this).val(), 'heapSizeSelect', '-Xms');
+/**
+ * HeapSize
+ */
+$('#minHeapSize').bind(inputBindAttrs, function () {
+    updateInputBox('minHeapSize', $(this).val(),  '-Xms');
+
 });
 
-$('#maxHeapSize').on('input', function () {
-    updateInputBox('maxHeapSize', $(this).val(), 'heapSizeSelect', '-Xmx');
+$('#maxHeapSize').bind(inputBindAttrs, function () {
+    updateInputBox('maxHeapSize', $(this).val(),  '-Xmx');
+
 });
 
+$('#defaultPermSize').bind(inputBindAttrs, function () {
+    updateInputBox('defaultPermSize', $(this).val(),  '-XX:PermSize=');
+
+});
+
+$('#maxPermSize').bind(inputBindAttrs, function () {
+    updateInputBox('maxPermSize', $(this).val(),  '-XX:MaxPermSize=');
+});
+
+$('#defaultMetaSpace').bind(inputBindAttrs, function () {
+    updateInputBox('defaultMetaspace', $(this).val(),  '-XX:MetaspaceSize=');
+});
+
+$('#maxMetaSpace').bind(inputBindAttrs, function () {
+    updateInputBox('maxMetaspace', $(this).val(),  '-XX:MaxMetaspaceSize=');
+});
+
+// G1 GC Flags
 
 
-function updateInputBox(varName, varValue, sizeUnitId, prefix) {
+
+function getSizeUnitValue(sizeUnitId) {
     var sizeUnit = '';
     if (sizeUnitId != null) {
         sizeUnit = $('#' + sizeUnitId).val();
     }
 
+    return sizeUnit;
+}
+
+
+function updateInputBox(varName, varValue, prefix) {
+
+
     if (isEmpty(varValue)) {
-        this[varName] = prefix + varValue + sizeUnit;
+        this[varName] = prefix + varValue;
     } else {
         this[varName] = '';
     }
+
+
+    validateAndRefreshJVMOptions();
+
 }
 
 
@@ -173,6 +222,14 @@ function validateAndRefreshJVMOptions() {
     //errorFile
     validateCheckboxInput("errorFile", "-XX:ErrorFile=/path/to/error_file.log");
 
+    /**
+     * Verbose Commands
+     */
+    validateCheckboxInput("verboseGC", "-verbose:gc");
+    validateCheckboxInput("verboseJNI", "-verbose:jni");
+    validateCheckboxInput("verboseClass", "-verbose:class");
+
+
     //largePages
     validateCheckboxInput("largePages", "-XX:+UseLargePages");
 
@@ -206,8 +263,21 @@ function refreshJVMFlagRef() {
     addTextToJVMSummary(jvmMode);
 
     // Heap Size
-    addTextToJVMSummary(minHeapSize);
-    addTextToJVMSummary(maxHeapSize);
+    addTextToJVMSummary(minHeapSize + getSizeUnitValue('heapSizeSelect'));
+    addTextToJVMSummary(maxHeapSize + getSizeUnitValue('heapSizeSelect'));
+
+
+    if(jdkVersion == 'jdkVersion8') {
+        // Metaspace
+        addTextToJVMSummary(defaultMetaspace  + getSizeUnitValue('metaSpaceSelect'));
+        addTextToJVMSummary(maxMetaspace + getSizeUnitValue('metaSpaceSelect'));
+    } else {
+        // Perm Size
+        addTextToJVMSummary(defaultPermSize + getSizeUnitValue('permSizeSelect'));
+        addTextToJVMSummary(maxPermSize + getSizeUnitValue('permSizeSelect'));
+    }
+
+
 
 
     // GC Collector Algorithm
@@ -224,6 +294,12 @@ function refreshJVMFlagRef() {
 
     //Error File
     addTextToJVMSummary(errorFile);
+
+    // Verbose Commands
+    addTextToJVMSummary(verboseGC);
+    addTextToJVMSummary(verboseJNI);
+    addTextToJVMSummary(verboseClass);
+
 
     //Enable AggressiveOpts
     addTextToJVMSummary(aggressiveOpts);
