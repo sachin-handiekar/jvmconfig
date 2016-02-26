@@ -22,8 +22,6 @@ var maxPermSize = "";
 var defaultMetaspace = "";
 var maxMetaspace = "";
 
-var gcExtraFlags = {}
-
 var tooltipMap = {}
 
 var verboseGC = '';
@@ -35,7 +33,11 @@ var printGCApplicationStoppedTime = '';
 var printAssembly = '';
 var printClassHistogram = '';
 var printConcurrentLocks = '';
-var unsyncloadClass = '';
+
+var hashCodeAlgo = '';
+
+
+var jvmOpts = {};
 
 
 
@@ -120,6 +122,21 @@ $('#gcCollector').on('change', function () {
 
 
 });
+
+
+/**
+ * GC Algorithm Selector
+ */
+$('#hashcodeSelect').on('change', function () {
+    if(!isEmpty(this.value)) {
+        hashCodeAlgo = '';
+    } else {
+        hashCodeAlgo = '-XX:hashCode=' + this.value;
+
+    }
+});
+
+
 
 /**
  * Reset Form Options
@@ -236,9 +253,6 @@ function validateAndRefreshJVMOptions() {
     validateCheckboxInput("verboseJNI", "-verbose:jni");
     validateCheckboxInput("verboseClass", "-verbose:class");
 
-
-
-
     validateCheckboxInput("printGCApplicationConcurrentTime", "-XX:+PrintGCApplicationConcurrentTime");
     validateCheckboxInput("printGCApplicationStoppedTime", "-XX:+PrintGCApplicationStoppedTime");
     validateCheckboxInput("printAssembly", "-XX:+PrintAssembly");
@@ -294,7 +308,8 @@ function refreshJVMFlagRef() {
     // GC Collector Algorithm
     addTextToJVMSummary(gcCollectorAlgorithm);
 
-
+    // hashcode Algo
+    addTextToJVMSummary(hashCodeAlgo);
 
     // Verbose Commands
     addTextToJVMSummary(verboseGC);
