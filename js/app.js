@@ -37,8 +37,7 @@ var printConcurrentLocks = '';
 var hashCodeAlgo = '';
 
 
-var jvmOpts = {};
-
+var memoryOpts = {};
 
 
 var inputBindAttrs = 'DOMAttrModified textInput input change keypress paste focus'
@@ -159,30 +158,30 @@ function resetJVMOptions() {
  * HeapSize
  */
 $('#minHeapSize').bind(inputBindAttrs, function () {
-    updateInputBox('minHeapSize', $(this).val(),  '-Xms');
+    updateMemoryInputFields('minHeapSize', $(this).val(),  '-Xms');
 
 });
 
 $('#maxHeapSize').bind(inputBindAttrs, function () {
-    updateInputBox('maxHeapSize', $(this).val(),  '-Xmx');
+    updateMemoryInputFields('maxHeapSize', $(this).val(),  '-Xmx');
 
 });
 
 $('#defaultPermSize').bind(inputBindAttrs, function () {
-    updateInputBox('defaultPermSize', $(this).val(),  '-XX:PermSize=');
+    updateMemoryInputFields('defaultPermSize', $(this).val(),  '-XX:PermSize=');
 
 });
 
 $('#maxPermSize').bind(inputBindAttrs, function () {
-    updateInputBox('maxPermSize', $(this).val(),  '-XX:MaxPermSize=');
+    updateMemoryInputFields('maxPermSize', $(this).val(),  '-XX:MaxPermSize=');
 });
 
 $('#defaultMetaSpace').bind(inputBindAttrs, function () {
-    updateInputBox('defaultMetaspace', $(this).val(),  '-XX:MetaspaceSize=');
+    updateMemoryInputFields('defaultMetaspace', $(this).val(),  '-XX:MetaspaceSize=');
 });
 
 $('#maxMetaSpace').bind(inputBindAttrs, function () {
-    updateInputBox('maxMetaspace', $(this).val(),  '-XX:MaxMetaspaceSize=');
+    updateMemoryInputFields('maxMetaspace', $(this).val(),  '-XX:MaxMetaspaceSize=');
 });
 
 // G1 GC Flags
@@ -199,19 +198,38 @@ function getSizeUnitValue(sizeUnitId) {
 }
 
 
-function updateInputBox(varName, varValue, prefix) {
-
-
+function updateMemoryInputFields(varName, varValue, prefix) {
     if (isEmpty(varValue)) {
-        this[varName] = prefix + varValue;
+
+        var tmpValue = prefix + varValue;
+        this[varName] = tmpValue;
+
+        addKeyValueToMap(varName, tmpValue, memoryOpts);
+
     } else {
+
+        addKeyValueToMap(varName, '', memoryOpts);
+
         this[varName] = '';
+    }
+    validateAndRefreshJVMOptions();
+}
+
+function addKeyValueToMap(key, value, map) {
+    if(!(key in map)) {
+        // Value doesn't exist
+        console.log('Key doesn exist');
+        map['' + key + ''] = value;
+
+    } else {
+        console.log('Updating value');
+
+        map['' + key + ''] = value;
     }
 
 
-    validateAndRefreshJVMOptions();
-
 }
+
 
 
 function isEmpty(data) {
@@ -223,12 +241,17 @@ function isEmpty(data) {
  * Global Change Listener
  */
 $("form :input").change(function () {
-
     validateAndRefreshJVMOptions();
 });
 
 
 function validateAndRefreshJVMOptions() {
+
+
+    //log output
+    console.log("--> " + memoryOpts);
+
+
 
 
     // Print GC Details
@@ -246,13 +269,12 @@ function validateAndRefreshJVMOptions() {
     //errorFile
     validateCheckboxInput("errorFile", "-XX:ErrorFile=/path/to/error_file.log");
 
-    /**
-     * Verbose Commands
-     */
+     // Verbose Commands
     validateCheckboxInput("verboseGC", "-verbose:gc");
     validateCheckboxInput("verboseJNI", "-verbose:jni");
     validateCheckboxInput("verboseClass", "-verbose:class");
 
+    //Print
     validateCheckboxInput("printGCApplicationConcurrentTime", "-XX:+PrintGCApplicationConcurrentTime");
     validateCheckboxInput("printGCApplicationStoppedTime", "-XX:+PrintGCApplicationStoppedTime");
     validateCheckboxInput("printAssembly", "-XX:+PrintAssembly");
@@ -289,21 +311,19 @@ function refreshJVMFlagRef() {
     addTextToJVMSummary(jvmMode);
 
     // Heap Size
-    addTextToJVMSummary(minHeapSize + getSizeUnitValue('heapSizeSelect'));
-    addTextToJVMSummary(maxHeapSize + getSizeUnitValue('heapSizeSelect'));
+    addMemoryOptsToJVMSummary(minHeapSize , getSizeUnitValue('heapSizeSelect'));
+    addMemoryOptsToJVMSummary(maxHeapSize , getSizeUnitValue('heapSizeSelect'));
 
 
     if(jdkVersion == 'jdkVersion8') {
         // Metaspace
-        addTextToJVMSummary(defaultMetaspace  + getSizeUnitValue('metaSpaceSelect'));
-        addTextToJVMSummary(maxMetaspace + getSizeUnitValue('metaSpaceSelect'));
+        addMemoryOptsToJVMSummary(defaultMetaspace  , getSizeUnitValue('metaSpaceSelect'));
+        addMemoryOptsToJVMSummary(maxMetaspace , getSizeUnitValue('metaSpaceSelect'));
     } else {
         // Perm Size
-        addTextToJVMSummary(defaultPermSize + getSizeUnitValue('permSizeSelect'));
-        addTextToJVMSummary(maxPermSize + getSizeUnitValue('permSizeSelect'));
+        addMemoryOptsToJVMSummary(defaultPermSize , getSizeUnitValue('permSizeSelect'));
+        addMemoryOptsToJVMSummary(maxPermSize , getSizeUnitValue('permSizeSelect'));
     }
-
-
 
     // GC Collector Algorithm
     addTextToJVMSummary(gcCollectorAlgorithm);
@@ -351,6 +371,17 @@ function addTextToJVMSummary(val) {
         // String is empty; don't do anything
     } else {
         $("#jvmFlagResult").append(val);
+        $("#jvmFlagResult").append(space);
+    }
+}
+
+
+function addMemoryOptsToJVMSummary(val, sizeSelect) {
+
+    if (!val.trim()) {
+        // String is empty; don't do anything
+    } else {
+        $("#jvmFlagResult").append(val + sizeSelect);
         $("#jvmFlagResult").append(space);
     }
 }
