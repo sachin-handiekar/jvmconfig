@@ -98,7 +98,7 @@
     },
     {
       "id": "printAssembly",
-      "tooltip": "Print assembly code for bytecoded and native methods. For more information please see - <a href='https://wiki.openjdk.java.net/display/HotSpot/PrintAssembly'>link</a>"
+      "tooltip": "Print assembly code for bytecoded and native methods."
     },
     {
       "id": "printClassHistogram",
