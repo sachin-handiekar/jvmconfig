@@ -71,6 +71,42 @@
     {
       "id": "heapDumpOnOOMemory",
       "tooltip": "Heap dump on OutOfMemory Error"
+    },
+    {
+      "id": "enableErrorFile",
+      "tooltip": ""
+    },  
+    {
+      "id": "verboseJNI",
+      "tooltip": ""
+    },
+    {
+      "id": "verboseGC",
+      "tooltip": ""
+    },
+    {
+      "id": "verboseClass",
+      "tooltip": ""
+    },
+    {
+      "id": "printGCApplicationConcurrentTime",
+      "tooltip": ""
+    },
+    {
+      "id": "printGCApplicationStoppedTime",
+      "tooltip": ""
+    },
+    {
+      "id": "printAssembly",
+      "tooltip": ""
+    },
+	  {
+      "id": "printClassHistogram",
+      "tooltip": ""
+    },
+    {
+      "id": "printConcurrentLocks",
+      "tooltip": ""
     }
   ]
 }
