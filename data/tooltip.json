@@ -74,39 +74,39 @@
     },
     {
       "id": "enableErrorFile",
-      "tooltip": ""
+      "tooltip": "If an error occurs, save the error data to this file."
     },  
     {
       "id": "verboseJNI",
-      "tooltip": ""
+      "tooltip": "When a JNI or native method is resolved, the HotSpot VM prints a trace message to the application console (standard output). It also prints a trace message when a native method is registered using the JNI RegisterNative function. "
     },
     {
       "id": "verboseGC",
-      "tooltip": ""
+      "tooltip": "The -verbose:gc option enables logging of garbage collection (GC) information. It can be combined with other HotSpot VM specific options such as -XX:+PrintGCDetails and -XX:+PrintGCTimeStamps to get further information about the GC. The information output includes the size of the generations before and after each GC, total size of the heap, the size of objects promoted, and the time taken."
     },
     {
       "id": "verboseClass",
-      "tooltip": ""
+      "tooltip": "The -verbose:class option enables logging of class loading and unloading."
     },
     {
       "id": "printGCApplicationConcurrentTime",
-      "tooltip": ""
+      "tooltip": "Print the time the application has been running"
     },
     {
       "id": "printGCApplicationStoppedTime",
-      "tooltip": ""
+      "tooltip": "Print the time the application has been stopped"
     },
     {
       "id": "printAssembly",
-      "tooltip": ""
+      "tooltip": "Print assembly code for bytecoded and native methods. For more information please see - <a href='https://wiki.openjdk.java.net/display/HotSpot/PrintAssembly'>link</a>"
     },
-	  {
+    {
       "id": "printClassHistogram",
-      "tooltip": ""
+      "tooltip": "Print a histogram of class instances"
     },
     {
       "id": "printConcurrentLocks",
-      "tooltip": ""
+      "tooltip": "Print java.util.concurrent locks in thread dump"
     }
   ]
 }
