@@ -17,13 +17,13 @@
 
     <link rel="stylesheet" href="https://bootswatch.com/united/bootstrap.css">
 
-    <link href="http://sachin-handiekar.github.io/jvmconfig/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-    <link href="http://sachin-handiekar.github.io/jvmconfig/css/jumbotron-narrow.css" rel="stylesheet">
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="css/jumbotron-narrow.css" rel="stylesheet">
     <!--
         Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]>
     <script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="http://sachin-handiekar.github.io/jvmconfig/js/ie-emulation-modes-warning.js"></script>
+    <script src="js/ie-emulation-modes-warning.js"></script>
     <style type="text/css"></style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -41,7 +41,7 @@
 
         body {
 
-            background: url("http://sachin-handiekar.github.io/jvmconfig/imgs/background/new_year_background.png") repeat;
+            background: url("imgs/background/new_year_background.png") repeat;
         }
 
     </style>
@@ -225,272 +225,20 @@
 
                 <!-- Garbage First (G1) Garbage Collection Options -->
                 <div id="g1ExtraFlags" class="panel panel-default">
-                    <div class="panel-heading">Garbage First (G1) Garbage Collection Options</div>
-                    <div class="panel-body">
 
 
-                        <!-- Max GC Pause Time   -->
-                        <div class="form-group">
-                            <label class="col-sm-5" for="g1gc-maxGCPauseTime">Set Max. GC pause time <i
-                                    id="tooltip-g1gc-maxGCPauseTime" data-toggle="tooltip"
-                                    class='glyphicon glyphicon-info-sign'></i></label>
-
-                            <div class="col-sm-5">
-                                <input class="form-control" id="g1gc-maxGCPauseTime" type="text" value="">
-                            </div>
-                        </div>
-
-
-                        <!-- -XX:InitiatingHeapOccupancyPercent=n   -->
-                        <div class="form-group">
-                            <label class="col-sm-5" for="g1gc-InitiatingHeapOccupancyPercent">Initiating Heap Occupancy
-                                Percent<i
-                                        id="tooltip-g1gc-InitiatingHeapOccupancyPercent" data-toggle="tooltip"
-                                        class='glyphicon glyphicon-info-sign'></i></label>
-                            <div class="col-sm-5">
-                                <input class="form-control" id="g1gc-InitiatingHeapOccupancyPercent" type="text"
-                                       value="">
-                            </div>
-                        </div>
-
-                        <!-- -XX:NewRatio=n	   -->
-                        <div class="form-group">
-                            <label class="col-sm-5" for="g1gc-NewRatio">New Ratio <i
-                                    id="tooltip-g1gc-NewRatio" data-toggle="tooltip"
-                                    class='glyphicon glyphicon-info-sign'></i></label>
-                            <div class="col-sm-5">
-                                <input class="form-control" id="g1gc-NewRatio" type="text" value="">
-                            </div>
-                        </div>
-
-                        <!-- -XX:SurvivorRatio=n		   -->
-                        <div class="form-group">
-                            <label class="col-sm-5" for="g1gc-SurvivorRatio">Survivor Ration <i
-                                    id="tooltip-g1gc-SurvivorRatio" data-toggle="tooltip"
-                                    class='glyphicon glyphicon-info-sign'></i></label>
-                            <div class="col-sm-5">
-                                <input class="form-control" id="g1gc-SurvivorRatio" type="text" value="">
-                            </div>
-                        </div>
-
-
-                        <!--  -XX:MaxTenuringThreshold=n		   -->
-                        <div class="form-group">
-                            <label class="col-sm-5" for="g1gc-MaxTenuringThreshold">Set Max. Tenuring Threshold <i
-                                    id="tooltip-g1gc-MaxTenuringThreshold" data-toggle="tooltip"
-                                    class='glyphicon glyphicon-info-sign'></i></label>
-                            <div class="col-sm-5">
-                                <input class="form-control" id="g1gc-MaxTenuringThreshold" type="text" value="">
-                            </div>
-                        </div>
-
-
-                        <!--  -XX:ParallelGCThreads=n			   -->
-                        <div class="form-group">
-                            <label class="col-sm-5" for="g1gc-ParallelGCThreads">Parallel GC Threads <i
-                                    id="tooltip-g1gc-ParallelGCThreads" data-toggle="tooltip" title="A JVM Vendor"
-                                    class='glyphicon glyphicon-info-sign'></i></label>
-                            <div class="col-sm-5">
-                                <input class="form-control" id="g1gc-ParallelGCThreads" type="text" value="">
-                            </div>
-                        </div>
-
-
-                        <!-- -XX:ConcGCThreads=n				   -->
-                        <div class="form-group">
-                            <label class="col-sm-5" for="g1gc-ConcGCThreads">Concurrent GC Threads <i
-                                    id="tooltip-g1gc-ConcGCThreads" data-toggle="tooltip"
-                                    class='glyphicon glyphicon-info-sign'></i></label>
-                            <div class="col-sm-5">
-                                <input class="form-control" id="g1gc-ConcGCThreads" type="text" value="">
-                            </div>
-                        </div>
-
-
-                        <!-- -XX:G1ReservePercent=n				   -->
-                        <div class="form-group">
-                            <label class="col-sm-5" for="g1gc-G1ReservePercent">G1 Reserve Percent <i
-                                    id="tooltip-g1gc-G1ReservePercent" data-toggle="tooltip"
-                                    class='glyphicon glyphicon-info-sign'></i></label>
-                            <div class="col-sm-5">
-                                <input class="form-control" id="g1gc-G1ReservePercent" type="text" value="">
-                            </div>
-                        </div>
-
-
-                        <!-- -XX:G1HeapRegionSize=n				   -->
-                        <div class="form-group">
-                            <label class="col-sm-5" for="g1gc-G1HeapRegionSize">G1 Heap Region Size <i
-                                    id="tooltip-g1gc-G1HeapRegionSize" data-toggle="tooltip"
-                                    class='glyphicon glyphicon-info-sign'></i></label>
-                            <div class="col-sm-5">
-                                <input class="form-control" id="g1gc-G1HeapRegionSize" type="text" value="">
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
 
             </div>
 
             <!-- Debugging Tab -->
             <div id="debugging" class="tab-pane fade">
-                <br/>
-
-                <!-- Debugging JVM Flags -->
-
-
-                <!-- Enable GC Logging    -->
-                <div class="form-group">
-                    <label class="col-sm-7" for="printGCDetails">Enable GC Logging <i
-                            id="tooltip-printGCDetails"
-                            data-toggle="tooltip"
-                            class='glyphicon glyphicon-info-sign'></i></label>
-                    <div class="col-sm-5">
-                        <input id="printGCDetails" type="checkbox" value="">
-                    </div>
-                </div>
-
-
-                <!-- Enable GC Log Rotation   -->
-                <div class="form-group">
-                    <label class="col-sm-7" for="enableGCLogRotation">Enable GC Log Rotation <i
-                            id="tooltip-enableGCLogRotation" data-toggle="tooltip"
-                            class='glyphicon glyphicon-info-sign'></i></label>
-                    <div class="col-sm-5">
-                        <input id="enableGCLogRotation" type="checkbox" value="">
-                    </div>
-                </div>
-
-
-                <!-- HeapDump on OnOutOfMemoryError   -->
-                <div class="form-group">
-                    <label class="col-sm-7" for="heapDumpOnOOMemory">Enable HeapDump on OutOfMemoryError <i
-                            id="tooltip-heapDumpOnOOMemory" data-toggle="tooltip"
-                            class='glyphicon glyphicon-info-sign'></i></label>
-                    <div class="col-sm-5">
-                        <input id="heapDumpOnOOMemory" type="checkbox" value="">
-                    </div>
-                </div>
-
-                <!-- ErrorFile   -->
-                <div class="form-group">
-                    <label class="col-sm-7" for="errorFile">Save Error data on a file <i
-                            id="tooltip-enableErrorFile" data-toggle="tooltip"
-                            class='glyphicon glyphicon-info-sign'></i></label>
-                    <div class="col-sm-5">
-                        <input id="errorFile" type="checkbox" value="">
-                    </div>
-                </div>
-
-                <!-- Verbose Commands (jni, gc & class) -->
-                <!-- Verbose : JNI   -->
-                <div class="form-group">
-                    <label class="col-sm-7" for="verboseJNI">Verbose logging of JNI <i
-                            id="tooltip-verboseJNI" data-toggle="tooltip"
-                            class='glyphicon glyphicon-info-sign'></i></label>
-                    <div class="col-sm-5">
-                        <input id="verboseJNI" type="checkbox" value="">
-                    </div>
-                </div>
-
-                <!-- Verbose : GC   -->
-                <div class="form-group">
-                    <label class="col-sm-7" for="verboseGC">Verbose logging of garbage collection (GC) information <i
-                            id="tooltip-verboseGC" data-toggle="tooltip"
-                            class='glyphicon glyphicon-info-sign'></i></label>
-                    <div class="col-sm-5">
-                        <input id="verboseGC" type="checkbox" value="">
-                    </div>
-                </div>
-
-                <!-- Verbose : class   -->
-                <div class="form-group">
-                    <label class="col-sm-7" for="verboseClass">Verbose logging of class loading and unloading <i
-                            id="tooltip-verboseClass" data-toggle="tooltip"
-                            class='glyphicon glyphicon-info-sign'></i></label>
-                    <div class="col-sm-5">
-                        <input id="verboseClass" type="checkbox" value="">
-                    </div>
-                </div>
-
-
-                <!-- PrintGCApplicationConcurrentTime  -->
-                <div class="form-group">
-                    <label class="col-sm-7" for="printGCApplicationConcurrentTime">Print GC Application Concurrent Time
-                        <i
-                                id="tooltip-printGCApplicationConcurrentTime" data-toggle="tooltip"
-                                class='glyphicon glyphicon-info-sign'></i></label>
-                    <div class="col-sm-5">
-                        <input id="printGCApplicationConcurrentTime" type="checkbox" value="">
-                    </div>
-                </div>
-
-
-                <!-- PrintGCApplicationStoppedTime   -->
-                <div class="form-group">
-                    <label class="col-sm-7" for="printGCApplicationStoppedTime">Print GC Application Stopped Time <i
-                            id="tooltip-printGCApplicationStoppedTime" data-toggle="tooltip"
-                            class='glyphicon glyphicon-info-sign'></i></label>
-                    <div class="col-sm-5">
-                        <input id="printGCApplicationStoppedTime" type="checkbox" value="">
-                    </div>
-                </div>
-
-
-                <!-- PrintAssembly   -->
-                <div class="form-group">
-                    <label class="col-sm-7" for="printAssembly">Print assembly <i
-                            id="tooltip-printAssembly" data-toggle="tooltip"
-                            class='glyphicon glyphicon-info-sign'></i></label>
-                    <div class="col-sm-5">
-                        <input id="printAssembly" type="checkbox" value="">
-                    </div>
-                </div>
-
-                <!-- PrintClassHistogram   -->
-                <div class="form-group">
-                    <label class="col-sm-7" for="printClassHistogram">Print class histogram <i
-                            id="tooltip-printClassHistogram" data-toggle="tooltip"
-                            class='glyphicon glyphicon-info-sign'></i></label>
-                    <div class="col-sm-5">
-                        <input id="printClassHistogram" type="checkbox" value="">
-                    </div>
-                </div>
-
-                <!-- PrintConcurrentLocks   -->
-                <div class="form-group">
-                    <label class="col-sm-7" for="printConcurrentLocks">Print Concurrent Locks <i
-                            id="tooltip-printConcurrentLocks" data-toggle="tooltip"
-                            class='glyphicon glyphicon-info-sign'></i></label>
-                    <div class="col-sm-5">
-                        <input id="printConcurrentLocks" type="checkbox" value="">
-                    </div>
-                </div>
+              <br />
             </div>
 
-
+            <!-- Performance Tab -->
             <div id="performance" class="tab-pane fade">
                 <br/>
-
-                <!-- AggressiveOpts   -->
-                <div class="form-group">
-                    <label class="col-sm-5" for="aggressiveOpts">Enable Aggressive Opts</label>
-                    <div class="col-sm-5">
-                        <input id="aggressiveOpts" type="checkbox" value="">
-                    </div>
-                </div>
-
-
-                <!-- Enable Large pages   -->
-                <div class="form-group">
-                    <label class="col-sm-5" for="largePages">Enable Large Pages</label>
-                    <div class="col-sm-5">
-                        <input id="largePages" type="checkbox" value="">
-                    </div>
-                </div>
-
-
             </div>
 
 
@@ -585,7 +333,7 @@
 </script>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="http://sachin-handiekar.github.io/jvmconfig/js/ie10-viewport-bug-workaround.js"></script>
+<script src="js/ie10-viewport-bug-workaround.js"></script>
 
 <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
@@ -593,7 +341,7 @@
         integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
         crossorigin="anonymous"></script>
 
-<script type='text/javascript' src="http://sachin-handiekar.github.io/jvmconfig/js/app.js"></script>
+<script type='text/javascript' src="js/app.js"></script>
 
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4e3c6a1d62498f68"></script>
