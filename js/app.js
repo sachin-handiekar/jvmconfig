@@ -40,7 +40,7 @@ var g1gcInputBoxMap = {};
  * Populate Tooltip from the tooltip.json file.
  */
 function populateTooltip() {
-    $.getJSON('data/tooltip.json', function (data) {
+    $.getJSON('http://sachin-handiekar.github.io/jvmconfig/data/tooltip.json', function (data) {
         $.each(data.tooltips, function (key, val) {
             tooltipMap['tooltip-' + val.id] = val.tooltip;
         });
@@ -59,7 +59,7 @@ function populateTooltip() {
 
 
 function populateDebuggingOptions() {
-    $.getJSON('data/debuggingOpts.json', function (data) {
+    $.getJSON('http://sachin-handiekar.github.io/jvmconfig/data/debuggingOpts.json', function (data) {
         $.each(data.debugging, function (key, val) {
             // Parse the JSON and store the id and jvm Option Value in a map
             debugOpts['' + val.id + ''] = val.value;
@@ -71,7 +71,7 @@ function populateDebuggingOptions() {
 
 
 function populatePerformanceOptions() {
-    $.getJSON('data/performanceOpts.json', function (data) {
+    $.getJSON('http://sachin-handiekar.github.io/jvmconfig/data/performanceOpts.json', function (data) {
         $.each(data.performance, function (key, val) {
             // Parse the JSON and store the id and jvm Option Value in a map
             performanceOpts['' + val.id + ''] = val.value;
@@ -83,7 +83,7 @@ function populatePerformanceOptions() {
 
 
 function populateG1GCExtraFlags() {
-    $.getJSON('data/g1gcOpts.json', function (data) {
+    $.getJSON('http://sachin-handiekar.github.io/jvmconfig/data/g1gcOpts.json', function (data) {
         var g1gcHtml = '';
         $.each(data.g1gcOpts, function (key, val) {
             // Parse the JSON and store the id and jvm Option Value in a map
@@ -178,6 +178,11 @@ $(document).ready(function () {
            addKeyValueToMap($(this).attr('id'), $(this).val(), g1gcInputBoxMap);
            validateAndRefreshJVMOptions();
     });
+    
+    
+    $.ajaxSetup({
+    async: true
+});
     
     
 });
