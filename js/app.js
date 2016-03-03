@@ -175,17 +175,11 @@ $(document).ready(function () {
 
 
     $('[id^=g1gc-]').bind(inputBindAttrs, function () {
-
-
-       // console.log(' id = ' + $(this).attr('id') + ", value = " + $(this).val());
-          addKeyValueToMap($(this).attr('id'), $(this).val(), g1gcInputBoxMap);
-
-        validateAndRefreshJVMOptions();
+           addKeyValueToMap($(this).attr('id'), $(this).val(), g1gcInputBoxMap);
+           validateAndRefreshJVMOptions();
     });
-
-
-
-
+    
+    
 });
 
 $('form').on('change', ':checkbox', function () {
@@ -303,12 +297,9 @@ function updateMemoryInputFields(varName, varValue, prefix) {
 function addKeyValueToMap(key, value, map) {
     if (!(key in map)) {
         // Value doesn't exist
-        console.log('Key doesn exist');
         map['' + key + ''] = value;
 
     } else {
-        console.log('Updating value');
-
         map['' + key + ''] = value;
     }
 
@@ -369,11 +360,7 @@ function validateCheckboxInput(chkboxId, jvmFlag) {
 
 
 function getG1ExtraFlags() {
-    console.log(g1gcInputBoxMap);
-
-
     var tmp = '';
-
     for (var key in g1gcOpts) {
         if (g1gcOpts.hasOwnProperty(key)) {
             var g1gcOptionValue = g1gcOpts[key];
@@ -443,9 +430,6 @@ function refreshJVMFlagRef() {
 
 
     // Iterate through performanceOpts
-    console.log(jvmOptsChkBox);
-
-
     for (var key in jvmOptsChkBox) {
         if (jvmOptsChkBox.hasOwnProperty(key)) {
             addTextToJVMSummary(jvmOptsChkBox[key]);
