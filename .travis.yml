@@ -3,19 +3,14 @@ node_js:
   - "9"
 
 cache: yarn
-install: yarn
 
-jobs:
-  include:
-  # --------------------------------------------
-  - stage: Build & Deploy
-    skip_cleanup: true
-    script:
-      - yarn build
-    deploy:
-      provider: script
-      script: yarn deploy
-    on:
-      tags: true
-      all_branches: true
-  # --------------------------------------------
+install: yarn
+script:
+  - yarn build
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: master
