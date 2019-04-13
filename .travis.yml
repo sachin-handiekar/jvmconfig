@@ -6,11 +6,12 @@ cache: yarn
 
 install: yarn
 script:
-  - yarn build
+  - yarn build --base-href /jvmconfig-public/
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   keep_history: true
+  local_dir: dist/jvmconfig-public
   on:
     branch: master
