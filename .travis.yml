@@ -7,4 +7,11 @@ cache: yarn
 install: yarn
 script:
   - yarn build
-  - yarn deploy
+before_deploy: git config --global user.email publish@travis.github && git config --global user.name "Travis"
+deploy:
+  - edge: true
+    skip_cleanup: true
+    provider: script
+    script: gulp publish
+    on:
+      branch: gh-pages
