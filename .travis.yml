@@ -11,7 +11,7 @@ before_deploy: git config --global user.email publish@travis.github && git confi
 deploy:
   - edge: true
     skip_cleanup: true
-    provider: script
+    provider: development
     script: gulp publish
     on:
       branch: gh-pages
