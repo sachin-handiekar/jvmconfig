@@ -1,0 +1,370 @@
+* {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+input,
+select {
+    height: 26.23401px;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.App {
+    width: 100%;
+    padding: 1rem;
+    background: #eee;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 730px;
+    min-width: 730px;
+    padding: 1rem 7%;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #e9562021;
+}
+
+.container h4 {
+    margin-bottom: 0.75rem;
+    text-align: center;
+    font-weight: 300;
+    font-size: 3rem;
+}
+
+.container .description {
+    padding: 0 1.777rem;
+    padding-bottom: 1rem;
+    color: #777;
+    border-bottom: #eee solid 1.5px;
+    font-size: 0.9rem;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    color: white;
+    background: #333;
+    border-radius: 50%;
+    font-weight: 700;
+    text-align: center;
+    line-height: 20px;
+    cursor: pointer;
+    transform: scale(0.6);
+    box-shadow: 0 3px 3px #ccc;
+}
+
+.tooltip:hover::after {
+    content: attr(tooltip);
+    position: absolute;
+    bottom: 20px;
+    width: 300px;
+    padding: 8px 16px;
+    background: #333;
+    font-size: 1.2rem;
+    font-weight: normal;
+    transform: translateX(-50%);
+    line-height: 1.6;
+}
+
+/*=================
+      Form
+==================*/
+#form {
+    margin: 1.777rem 0;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+#form > div:first-child {
+    display: flex;
+    justify-content: space-between;
+}
+
+#form > div:first-child label {
+    margin-left: 1rem;
+}
+
+#form > div:first-child .select {
+    margin: 0 1rem;
+}
+
+.github {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 0;
+}
+
+.select {
+    position: relative;
+    width: 240.9px;
+    height: 26.23401px;
+    border-radius: 2px;
+    background: white;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
+}
+
+.select:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    right: 10px;
+    bottom: 0;
+    margin: auto;
+    border-style: solid;
+    border-width: 5px 5px 0 5px;
+    border-color: #2f4858 transparent transparent transparent;
+    pointer-events: none;
+}
+
+.select:before {
+    width: 30px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    background: whitesmoke;
+    content: "";
+    pointer-events: none;
+}
+
+.select:hover::before {
+    background: #ffcfcf;
+}
+
+.select select,
+input[type="text"] {
+    font-size: 14px;
+    border: none;
+    box-shadow: none;
+    border-radius: 2px;
+    background: transparent;
+    outline: none;
+    padding-right: 35px;
+    padding-left: 15px;
+    border: 1px solid #2f4858;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.select select {
+    width: 100%;
+    cursor: pointer;
+    border: 1px solid #2f4858;
+}
+
+.select select:focus,
+input[type="text"]:focus {
+    border: #86bbd8 solid 1px;
+}
+
+.select select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+
+.select select::-ms-expand {
+    display: none;
+}
+
+.checkbox {
+    margin-left: 0.75rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkbox input {
+    display: none;
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.checkbox span {
+    margin-right: 0.75rem;
+    display: block;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border: #e95420 solid 1px;
+    border-radius: 2px;
+    box-shadow: 0 2px 2px #e9562085;
+}
+
+.checkbox input:checked ~ span {
+    background: #e95420;
+}
+
+#jdkVersion {
+    display: flex;
+}
+
+#config-container {
+    margin: 3.157rem 1rem;
+}
+
+#config-container .config-navbar {
+    margin-bottom: 1.777rem;
+    display: flex;
+    border-bottom: #ccc solid 1px;
+}
+
+#config-container .config-navbar a {
+    padding: 1rem;
+    margin: 0 1rem;
+    display: block;
+    height: calc(100% - 2rem);
+    color: #e9562085;
+    font-size: 0.9rem;
+}
+
+#config-container .config-navbar a:first-child {
+    padding: 1rem 0;
+}
+
+#config-container .config-navbar .active {
+    color: #e95420;
+    border-bottom: #e95420 solid 1.5px;
+}
+
+#config-container .active {
+    display: block;
+}
+
+#config-container .hide {
+    display: none !important;
+}
+
+#config-container .sub-options {
+    margin-top: 0.75rem;
+    background: #eee;
+}
+
+#config-container .sub-options > p {
+    padding: 1rem;
+    background: #ccc;
+}
+
+#config-container .sub-options > div {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+#config-container .sub-options input {
+    background: white;
+}
+
+#memory {
+    display: flex;
+    justify-content: space-between;
+}
+
+#memory .select {
+    width: 100px;
+}
+
+#memory input {
+    margin-right: 1rem;
+    width: 79.479px;
+    height: calc(100% - 2px);
+}
+
+#memory > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+#memory > div:first-child {
+    margin-bottom: 1rem;
+}
+
+#memory > div > div {
+    display: flex;
+}
+
+#summery {
+    margin: 0 1rem 1.777rem 1rem;
+}
+
+#summary textarea {
+    margin: 0;
+    padding: 1rem;
+    width: calc(100% - 2rem);
+    height: 150px;
+    outline: none;
+    line-height: 1.6;
+    font-family: "Roboto", sans-serif;
+}
+
+#summary > div:last-child {
+    margin-top: 0.75rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#copy,
+#download {
+    padding: 8px 30px;
+    color: white;
+    background: #33658a;
+    border: none;
+    box-shadow: 0 3px 3px #33648a55;
+    cursor: pointer;
+}
+
+#copy {
+    margin-right: 1.777rem;
+}
+
+#copy:hover,
+#download:hover {
+    background: #33648add;
+}
+
+/*=================
+      Footer
+==================*/
+#footer {
+    padding-top: 1rem;
+    color: #aaa;
+    text-align: center;
+    font-weight: 300;
+    border-top: #aaa solid 1px;
+}
+
+#footer a {
+    color: #e95420;
+    text-decoration: none;
+}
+
+#footer a:hover {
+    border-bottom: #e95420 solid 1px;
+}
