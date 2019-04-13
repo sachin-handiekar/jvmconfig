@@ -2,7 +2,9 @@
   "name": "jvmConfig",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://jvmconfig.in",
   "dependencies": {
+    "gh-pages": "^2.0.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-router-dom": "^4.3.1",
@@ -12,7 +14,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build",
   },
   "eslintConfig": {
     "extends": "react-app"
