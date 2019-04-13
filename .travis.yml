@@ -7,12 +7,12 @@ cache: yarn
 install: yarn
 script:
   - yarn build
-  - echo 'jvmconfig.in' > public/CNAME
+  - echo 'jvmconfig.in' > build/CNAME
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   keep_history: true
-  local_dir: public
+  local_dir: build
   on:
     branch: master
