@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "homepage": "https://jvmconfig.in",
   "dependencies": {
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5"
   },
