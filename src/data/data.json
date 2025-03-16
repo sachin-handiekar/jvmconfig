@@ -5,14 +5,6 @@
       {
         "value": "Oracle",
         "disabled": false
-      },
-      {
-        "value": "OpenJDK (not implemented)",
-        "disabled": true
-      },
-      {
-        "value": "IBM (not implemented)",
-        "disabled": true
       }
     ],
     "tooltip": "JVM Vendor"
@@ -25,6 +17,45 @@
       },
       {
         "value": "8"
+      },
+      {
+        "value": "9"
+      },
+      {
+        "value": "10"
+      },
+      {
+        "value": "11 (LTS)"
+      },
+      {
+        "value": "12"
+      },
+      {
+        "value": "13"
+      },
+      {
+        "value": "14"
+      },
+      {
+        "value": "15"
+      },
+      {
+        "value": "16"
+      },
+      {
+        "value": "17 (LTS)"
+      },
+      {
+        "value": "18"
+      },
+      {
+        "value": "19"
+      },
+      {
+        "value": "20"
+      },
+      {
+        "value": "21 (LTS)"
       }
     ],
     "tooltip": "JDK Version"
@@ -35,19 +66,23 @@
       {
         "id": "printGCDetails",
         "text": "Enable GC Logging ",
-        "value": "-XX:+PrintGCDetails",
-        "tooltip": "Print GC Details"
+        "value": "-Xlog:gc*",
+        "tooltip": "Print GC Details (JDK 9+)",
+        "legacyValue": "-XX:+PrintGCDetails",
+        "minVersion": 9
       },
       {
         "id": "enableGCLogRotation",
         "text": "Enable GC Log Rotation ",
-        "value": "-Xloggc:gc.log.'date +%Y%m%d%H%M%S' -XX:+UseGCLogFileRotation",
-        "tooltip": "Enable GC Log Rotation"
+        "value": "-Xlog:gc*:file=gc_%t.log::filecount=5,filesize=100M",
+        "tooltip": "Enable GC Log Rotation with file size limit and rotation",
+        "legacyValue": "-Xloggc:gc.log.'date +%Y%m%d%H%M%S' -XX:+UseGCLogFileRotation",
+        "minVersion": 9
       },
       {
         "id": "heapDumpOnOOMemory",
         "text": "Enable HeapDump on OutOfMemoryError",
-        "value": "-XX:-HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/heapDump.hprof",
+        "value": "-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/heapDump.hprof",
         "tooltip": "Heap dump on OutOfMemory Error"
       },
       {
@@ -59,32 +94,42 @@
       {
         "id": "verboseJNI",
         "text": "Verbose logging of JNI ",
-        "value": "-verbose:jni",
-        "tooltip": "When a JNI or native method is resolved, the HotSpot VM prints a trace message to the application console (standard output). It also prints a trace message when a native method is registered using the JNI RegisterNative function. "
+        "value": "-Xlog:jni+resolve=debug",
+        "tooltip": "JNI debugging and resolution information",
+        "legacyValue": "-verbose:jni",
+        "minVersion": 9
       },
       {
         "id": "verboseGC",
-        "text": "Verbose logging of garbage collection (GC) information",
-        "value": "-verbose:gc",
-        "tooltip": "The -verbose:gc option enables logging of garbage collection (GC) information. It can be combined with other HotSpot VM specific options such as -XX:+PrintGCDetails and -XX:+PrintGCTimeStamps to get further information about the GC. The information output includes the size of the generations before and after each GC, total size of the heap, the size of objects promoted, and the time taken."
+        "text": "Verbose logging of garbage collection (GC)",
+        "value": "-Xlog:gc",
+        "tooltip": "Basic GC logging",
+        "legacyValue": "-verbose:gc",
+        "minVersion": 9
       },
       {
         "id": "verboseClass",
-        "text": "Verbose logging of class loading and unloading",
-        "value": "-verbose:class",
-        "tooltip": "The -verbose:class option enables logging of class loading and unloading."
+        "text": "Verbose logging of class loading",
+        "value": "-Xlog:class+load=info",
+        "tooltip": "Class loading information",
+        "legacyValue": "-verbose:class",
+        "minVersion": 9
       },
       {
         "id": "printGCApplicationConcurrentTime",
         "text": "Print GC Application Concurrent Time",
-        "value": "-XX:+PrintGCApplicationConcurrentTime",
-        "tooltip": "Print the time the application has been running"
+        "value": "-Xlog:safepoint",
+        "tooltip": "Print safepoint and application concurrent time information",
+        "legacyValue": "-XX:+PrintGCApplicationConcurrentTime",
+        "minVersion": 9
       },
       {
         "id": "printGCApplicationStoppedTime",
         "text": "Print GC Application Stopped Time ",
-        "value": "-XX:+PrintGCApplicationStoppedTime",
-        "tooltip": "Print the time the application has been stopped"
+        "value": "-Xlog:safepoint",
+        "tooltip": "Print safepoint statistics including stopped time",
+        "legacyValue": "-XX:+PrintGCApplicationStoppedTime",
+        "minVersion": 9
       },
       {
         "id": "printAssembly",
@@ -103,6 +148,20 @@
         "text": "Print Concurrent Locks ",
         "value": "-XX:+PrintConcurrentLocks",
         "tooltip": "Print java.util.concurrent locks in thread dump"
+      },
+      {
+        "id": "jfrStartFlight",
+        "text": "Start Flight Recorder",
+        "value": "-XX:StartFlightRecording=duration=60s,filename=recording.jfr",
+        "tooltip": "Start JFR recording on JVM startup",
+        "minVersion": 11
+      },
+      {
+        "id": "enableCDS",
+        "text": "Enable Class Data Sharing",
+        "value": "-XX:+UseSharedArchive -XX:SharedArchiveFile=app.jsa",
+        "tooltip": "Enable CDS to improve startup time",
+        "minVersion": 10
       }
     ]
   },
@@ -111,9 +170,10 @@
     "children": [
       {
         "id": "aggressiveOpts",
-        "text": "Enable Aggresive Opts",
+        "text": "Enable Aggressive Opts",
         "value": "-XX:+AggressiveOpts",
-        "tooltip": "Enable Aggresive Opts"
+        "tooltip": "Enable aggressive optimizations - deprecated in JDK 11+",
+        "maxVersion": 10
       },
       {
         "id": "largePages",
@@ -122,22 +182,46 @@
         "tooltip": "Enable Large Pages"
       },
       {
-        "id": "stringCache",
-        "text": "Use String Cache",
-        "value": "-XX:+UseStringCache",
-        "tooltip": "Enables caching of commonly allocated strings"
+        "id": "stringDeduplication",
+        "text": "Enable String Deduplication",
+        "value": "-XX:+UseStringDeduplication",
+        "tooltip": "Enables string deduplication in G1 GC",
+        "minVersion": 8
       },
       {
-        "id": "compressedStrings",
-        "text": "Use Compressed Strings",
-        "value": "-XX:+UseCompressedStrings",
-        "tooltip": "Use a byte[] for Strings which can be represented as pure ASCII."
+        "id": "compactStrings",
+        "text": "Enable Compact Strings",
+        "value": "-XX:+CompactStrings",
+        "tooltip": "Enables more memory-efficient string storage",
+        "minVersion": 9
       },
       {
-        "id": "optimizeStringConcat",
-        "text": "Optimize String concatenation",
-        "value": "-XX:+OptimizeStringConcat",
-        "tooltip": "Optimize String concatenation operations where possible."
+        "id": "enableDynamicAgentLoading",
+        "text": "Enable Dynamic Agent Loading",
+        "value": "-XX:+EnableDynamicAgentLoading",
+        "tooltip": "Enables dynamic attachment of agents to the JVM",
+        "minVersion": 10
+      },
+      {
+        "id": "useZGC",
+        "text": "Use Z Garbage Collector",
+        "value": "-XX:+UseZGC",
+        "tooltip": "Enable the Z Garbage Collector - low latency GC",
+        "minVersion": 11
+      },
+      {
+        "id": "useShenandoahGC",
+        "text": "Use Shenandoah Garbage Collector",
+        "value": "-XX:+UseShenandoahGC",
+        "tooltip": "Enable the Shenandoah Garbage Collector",
+        "minVersion": 12
+      },
+      {
+        "id": "enablePreview",
+        "text": "Enable Preview Features",
+        "value": "--enable-preview",
+        "tooltip": "Enable preview language features",
+        "minVersion": 12
       }
     ]
   },
@@ -148,12 +232,13 @@
       {
         "id": "default",
         "value": "default",
-        "text": "Default"
+        "text": "Default (G1 for JDK 9+)"
       },
       {
         "id": "cms",
         "value": "cms",
-        "text": "CMS (low pause)"
+        "text": "CMS (low pause)",
+        "maxVersion": 14
       },
       {
         "id": "parallel",
@@ -176,54 +261,66 @@
             "id": "g1gcInitiatingHeapOccupancyPercent",
             "text": "Initiating Heap Occupancy Percent",
             "value": "-XX:InitiatingHeapOccupancyPercent=",
-            "tooltip": "Percentage of the (entire) heap occupancy to start a concurrent GC cycle. It is used by GCs that trigger a concurrent GC cycle based on the occupancy of the entire heap, not just one of the generations (e.g., G1). A value of 0 denotes 'do constant GC cycles'. The default value is 45."
+            "tooltip": "Percentage of the (entire) heap occupancy to start a concurrent GC cycle. Default value is 45."
           },
           {
-            "id": "g1gcNewRatio",
-            "text": "New Ratio",
-            "value": "-XX:NewRatio=",
-            "tooltip": "Ratio of old/new generation sizes. The default value is 2."
+            "id": "g1gcRegionSize",
+            "text": "G1 Region Size",
+            "value": "-XX:G1HeapRegionSize=",
+            "tooltip": "Size of G1 regions. Default value is based on heap size.",
+            "minVersion": 9
           },
           {
-            "id": "g1gcSurvivorRatio",
-            "text": "Survivor Ratio",
-            "value": "-XX:SurvivorRatio=",
-            "tooltip": "Ratio of eden/survivor space size. The default value is 8."
-          },
-          {
-            "id": "g1gcMaxTenuringThreshold",
-            "text": "Set Max. Tenuring Threshold ",
-            "value": "-XX:MaxTenuringThreshold=",
-            "tooltip": "Maximum value for tenuring threshold. The default value is 15."
-          },
-          {
-            "id": "g1gcParallelGCThreads",
-            "text": "Parallel GC Threads",
-            "value": "-XX:ParallelGCThreads=",
-            "tooltip": "Sets the number of threads used during parallel phases of the garbage collectors. The default value varies with the platform on which the JVM is running."
-          },
-          {
-            "id": "g1gcConcGCThreads",
-            "text": "Concurrent GC Threads",
-            "value": "-XX:ConcGCThreads=",
-            "tooltip": "Number of threads concurrent garbage collectors will use. The default value varies with the platform on which the JVM is running."
-          },
-          {
-            "id": "g1gcG1ReservePercent",
+            "id": "g1gcReservePercent",
             "text": "G1 Reserve Percent",
             "value": "-XX:G1ReservePercent=",
-            "tooltip": "Sets the amount of heap that is reserved as a false ceiling to reduce the possibility of promotion failure. The default value is 10."
+            "tooltip": "Sets the amount of heap that is reserved to handle promotion failure.",
+            "minVersion": 9
+          }
+        ]
+      },
+      {
+        "id": "zgc",
+        "value": "zgc",
+        "text": "ZGC (ultra-low pause)",
+        "minVersion": 11,
+        "options": [
+          {
+            "id": "zgcMaxCompactionPause",
+            "text": "ZGC Max Compaction Pause",
+            "value": "-XX:ZMaxCompactionPause=",
+            "tooltip": "Maximum allowed pause time during ZGC compaction"
           },
           {
-            "id": "g1gcG1HeapRegionSize",
-            "text": "G1 Heap Region Size",
-            "value": "-XX:G1HeapRegionSize=",
-            "tooltip": "With G1 the Java heap is subdivided into uniformly sized regions. This sets the size of the individual sub-divisions. The default value of this parameter is determined ergonomically based upon heap size. The minimum value is 1Mb and the maximum value is 32Mb."
+            "id": "zgcGenerational",
+            "text": "Enable Generational ZGC",
+            "value": "-XX:+ZGenerational",
+            "tooltip": "Enable generational collection in ZGC",
+            "minVersion": 17
+          }
+        ]
+      },
+      {
+        "id": "shenandoah",
+        "value": "shenandoah",
+        "text": "Shenandoah (ultra-low pause)",
+        "minVersion": 12,
+        "options": [
+          {
+            "id": "shenandoahGCMode",
+            "text": "Shenandoah GC Mode",
+            "value": "-XX:ShenandoahGCMode=",
+            "tooltip": "Set Shenandoah GC mode (passive,adaptive,aggressive)"
+          },
+          {
+            "id": "shenandoahGuaranteedGCInterval",
+            "text": "Guaranteed GC Interval",
+            "value": "-XX:ShenandoahGuaranteedGCInterval=",
+            "tooltip": "Time between guaranteed GC cycles (in milliseconds)"
           }
         ]
       }
-    ],
-    "tooltip": "GC Collector Algorithm"
+    ]
   },
   "additional": {
     "id": "additional",
@@ -276,32 +373,33 @@
     "g1": "-XX:+UseG1GC",
     "cms": "-XX:+UseConcMarkSweepGC",
     "parallel": "-XX:+UseParNewGC -XX:+UseConcMarkSweepGC",
-    "printGCDetails": "-XX:+PrintGCDetails",
-    "enableGCLogRotation": "-Xloggc:gc.log.'date +%Y%m%d%H%M%S' -XX:+UseGCLogFileRotation",
-    "heapDumpOnOOMemory": "-XX:-HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/heapDump.hprof",
+    "zgc": "-XX:+UseZGC",
+    "shenandoah": "-XX:+UseShenandoahGC",
+    "printGCDetails": "-Xlog:gc*",
+    "enableGCLogRotation": "-Xlog:gc*:file=gc_%t.log::filecount=5,filesize=100M",
+    "heapDumpOnOOMemory": "-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/heapDump.hprof",
     "enableErrorFile": "-XX:ErrorFile=/path/to/error_file.log",
-    "verboseJNI": "-verbose:jni",
-    "verboseGC": "-verbose:gc",
-    "verboseClass": "-verbose:class",
-    "printGCApplicationConcurrentTime": "-XX:+PrintGCApplicationConcurrentTime",
-    "printGCApplicationStoppedTime": "-XX:+PrintGCApplicationStoppedTime",
+    "verboseJNI": "-Xlog:jni+resolve=debug",
+    "verboseGC": "-Xlog:gc",
+    "verboseClass": "-Xlog:class+load=info",
+    "printGCApplicationConcurrentTime": "-Xlog:safepoint",
+    "printGCApplicationStoppedTime": "-Xlog:safepoint",
     "printAssembly": "-XX:+PrintAssembly",
     "printClassHistogram": "-XX:+PrintClassHistogram",
     "printConcurrentLocks": "-XX:+PrintConcurrentLocks",
     "hashCodeAlgo": "-XX:hashCode=",
     "aggressiveOpts": "-XX:+AggressiveOpts",
     "largePages": "-XX:+UseLargePages",
-    "stringCache": "-XX:+UseStringCache",
-    "compressedStrings": "-XX:+UseCompressedStrings",
-    "optimizeStringConcat": "-XX:+OptimizeStringConcat",
+    "stringDeduplication": "-XX:+UseStringDeduplication",
+    "compactStrings": "-XX:+CompactStrings",
+    "enableDynamicAgentLoading": "-XX:+EnableDynamicAgentLoading",
     "g1gcMaxGCPauseTime": "-XX:MaxGCPauseMillis=",
     "g1gcInitiatingHeapOccupancyPercent": "-XX:InitiatingHeapOccupancyPercent=",
-    "g1gcNewRatio": "-XX:NewRatio=",
-    "g1gcSurvivorRatio": "-XX:SurvivorRatio=",
-    "g1gcMaxTenuringThreshold": "-XX:MaxTenuringThreshold=",
-    "g1gcParallelGCThreads": "-XX:ParallelGCThreads=",
-    "g1gcConcGCThreads": "-XX:ConcGCThreads=",
-    "g1gcG1ReservePercent": "-XX:G1ReservePercent=",
-    "g1gcG1HeapRegionSize": "-XX:G1HeapRegionSize="
+    "g1gcRegionSize": "-XX:G1HeapRegionSize=",
+    "g1gcReservePercent": "-XX:G1ReservePercent=",
+    "zgcMaxCompactionPause": "-XX:ZMaxCompactionPause=",
+    "zgcGenerational": "-XX:+ZGenerational",
+    "shenandoahGCMode": "-XX:ShenandoahGCMode=",
+    "shenandoahGuaranteedGCInterval": "-XX:ShenandoahGuaranteedGCInterval="
   }
 }
