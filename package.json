@@ -7,16 +7,22 @@
     "npm": ">=8.0.0"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@testing-library/jest-dom": "^6.1.6",
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/user-event": "^14.5.2",
     "github-fork-ribbon-css": "^0.2.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-github-fork-banner": "^1.1.3",
-    "react-router-dom": "^6.26.2",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "react-router-dom": "^6.21.3",
+    "react-scripts": "^5.0.1",
+    "web-vitals": "^3.5.1"
+  },
+  "overrides": {
+    "nth-check": "^2.0.1",
+    "postcss": "^8.4.31",
+    "@svgr/webpack": "^8.1.0",
+    "resolve-url-loader": "^5.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
