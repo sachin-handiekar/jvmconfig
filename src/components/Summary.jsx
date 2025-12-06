@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {Consumer} from "../context";
+import React, { Component } from "react";
+import { Consumer } from "../context";
 
 class Summary extends Component {
     state = {
@@ -7,29 +7,27 @@ class Summary extends Component {
         value: ""
     };
 
-    copyToClipboard = str => {
-        const el = document.createElement("textarea");
-        el.value = str;
-        el.setAttribute("readonly", "");
-        el.style.position = "absolute";
-        el.style.left = "-9999px";
-        document.body.appendChild(el);
-        const selected =
-            document.getSelection().rangeCount > 0
-                ? document.getSelection().getRangeAt(0)
-                : false;
-        el.select();
-        document.execCommand("copy");
-        document.body.removeChild(el);
-        if (selected) {
-            document.getSelection().removeAllRanges();
-            document.getSelection().addRange(selected);
+    copyToClipboard = async str => {
+        try {
+            // Modern Clipboard API (async)
+            await navigator.clipboard.writeText(str);
+        } catch (err) {
+            // Fallback for older browsers that don't support Clipboard API
+            const el = document.createElement("textarea");
+            el.value = str;
+            el.setAttribute("readonly", "");
+            el.style.position = "absolute";
+            el.style.left = "-9999px";
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand("copy");
+            document.body.removeChild(el);
         }
     };
 
     handleSaveToPC = jsonData => {
         const fileData = JSON.stringify(jsonData);
-        const blob = new Blob([fileData], {type: "text/plain"});
+        const blob = new Blob([fileData], { type: "text/plain" });
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.download = "jvm-config.txt";
@@ -45,14 +43,14 @@ class Summary extends Component {
     componentDidUpdate() {
         if (this.state.download) {
             this.handleSaveToPC(this.state.value);
-            this.setState({download: false});
+            this.setState({ download: false });
         }
     }
 
     getVersionSpecificFlags = (JDKVersion, configuration, flags) => {
         // Extract the base version number for comparison
         const baseVersion = parseInt(JDKVersion.split(/[\s/]/)[0]);
-        
+
         // Memory management flags changed significantly across versions
         if (baseVersion <= 7) {
             return {
@@ -74,7 +72,7 @@ class Summary extends Component {
             };
         } else {
             // For JDK 9+, use new unified logging system
-            const newFlags = {...flags};
+            const newFlags = { ...flags };
             if (baseVersion >= 9) {
                 // Convert old logging flags to new unified logging format
                 if (flags.printGCDetails) newFlags.printGCDetails = "-Xlog:gc*";
@@ -105,7 +103,7 @@ class Summary extends Component {
     };
 
     getGCOptions = (mainState, data, baseVersion) => {
-        let {garbageCollector} = mainState;
+        let { garbageCollector } = mainState;
         const gcConfig = data.garbageCollector;
 
         // Set G1 as default for JDK 9+
@@ -115,7 +113,7 @@ class Summary extends Component {
 
         // Find the selected GC configuration
         const selectedGC = gcConfig.children.find(gc => gc.id === garbageCollector);
-        
+
         if (!selectedGC) return { gcFlag: "", options: [] };
 
         // Check version compatibility
@@ -146,7 +144,7 @@ class Summary extends Component {
     };
 
     render() {
-        const {configuration} = this.props.data;
+        const { configuration } = this.props.data;
 
         return (
             <Consumer>
@@ -228,7 +226,7 @@ class Summary extends Component {
                     }
 
                     // Get garbage collector configuration
-                    const {gcFlag, options: gcOptions} = this.getGCOptions(mainState, this.props.data, baseVersion);
+                    const { gcFlag, options: gcOptions } = this.getGCOptions(mainState, this.props.data, baseVersion);
 
                     // Collect all debugging flags
                     const debuggingFlags = [
