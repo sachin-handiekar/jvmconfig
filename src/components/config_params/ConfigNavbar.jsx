@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {Link} from "react-router-dom";
 
 class ConfigNavbar extends Component {
     render() {
@@ -7,55 +6,55 @@ class ConfigNavbar extends Component {
 
         return (
             <ul className="config-navbar">
-                <Link
-                    to="#memory"
+                <a
+                    href="#memory"
                     className={`${activeNavbar === "memory" && "active"}`}
                     onClick={() => {
                         handleActiveNavbar("memory");
                     }}
                 >
                     Memory
-                </Link>
+                </a>
 
-                <Link
-                    to="#garbageCollector"
+                <a
+                    href="#garbageCollector"
                     className={`${activeNavbar === "garbageCollector" && "active"}`}
                     onClick={() => {
                         handleActiveNavbar("garbageCollector");
                     }}
                 >
                     Garbage Collector
-                </Link>
+                </a>
 
-                <Link
-                    to="#debugging"
+                <a
+                    href="#debugging"
                     className={`${activeNavbar === "debugging" && "active"}`}
                     onClick={() => {
                         handleActiveNavbar("debugging");
                     }}
                 >
                     Debugging
-                </Link>
+                </a>
 
-                <Link
-                    to="#performance"
+                <a
+                    href="#performance"
                     className={`${activeNavbar === "performance" && "active"}`}
                     onClick={() => {
                         handleActiveNavbar("performance");
                     }}
                 >
                     Performance
-                </Link>
+                </a>
 
-                <Link
-                    to="#additional"
+                <a
+                    href="#additional"
                     className={`${activeNavbar === "additional" && "active"}`}
                     onClick={() => {
                         handleActiveNavbar("additional");
                     }}
                 >
                     Additional
-                </Link>
+                </a>
             </ul>
         );
     }
